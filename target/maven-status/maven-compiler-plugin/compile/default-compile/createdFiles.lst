@@ -1,1 +1,3 @@
-com/example/dist_app/WelcomeController.class
+com/example/dist_app/controller/WelcomeController.class
+com/example/dist_app/controller/ProductController.class
+com/example/dist_app/model/Product.class
