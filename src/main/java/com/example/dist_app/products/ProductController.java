@@ -1,6 +1,7 @@
-package com.example.dist_app.controller;
+package com.example.dist_app.products;
 
-import com.example.dist_app.model.Product;
+import com.example.dist_app.products.Product;
+import com.example.dist_app.products.IProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,6 +10,12 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
+    private IProductService productService;
+
+    public ProductController(IProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping("/")
     public List<Product> index() {
         return Product.getProducts();
@@ -16,7 +23,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public Product show(@PathVariable Long id) {
-        return Product.getProductById(id);
+        return productService.getProductById(id);
     }
 
     @GetMapping("/filtered")
@@ -27,7 +34,7 @@ public class ProductController {
         @RequestParam(required = false) Long size,
         @RequestParam(required = false) String color
     ) {
-        return Product.filter(id, name, price, size, color);
+        return productService.filter(id, name, price, size, color);
     }
 
 }

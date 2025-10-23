@@ -1,4 +1,4 @@
-package com.example.dist_app.model;
+package com.example.dist_app.products;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,25 +66,5 @@ public class Product {
             new Product(4L, "Tablet", 599.99, 1L, "black"),
             new Product(5L, "Book", 99.99, 1L, "black")
         );
-    }
-
-    public static Product getProductById(Long id) {
-        for (Product product : getProducts()) {
-            if (product.getId().equals(id)) {
-                return product;
-            }
-        }
-
-        return null;
-    }
-
-    public static List<Product> filter(Long id, String name, Double price, Long size, String color) {
-        return Product.getProducts().stream()
-            .filter(p -> id == null || p.getId().equals(id))
-            .filter(p -> name == null || p.getName().equalsIgnoreCase(name))
-            .filter(p -> price == null || p.getPrice().equals(price))
-            .filter(p -> size == null || p.getSize().equals(size))
-            .filter(p -> color == null || p.getColor().equalsIgnoreCase(color))
-            .collect(Collectors.toList());
     }
 }
