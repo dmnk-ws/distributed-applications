@@ -1,8 +1,5 @@
 package com.example.dist_app.products;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Product {
     private Long id;
     private String name;
@@ -56,15 +53,5 @@ public class Product {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public static List<Product> getProducts() {
-        return List.of(
-            new Product(1L, "Laptop", 999.99, 1L, "black"),
-            new Product(2L, "Phone", 399.99, 1L, "black"),
-            new Product(3L, "Headphones", 199.99, 1L, "black"),
-            new Product(4L, "Tablet", 599.99, 1L, "black"),
-            new Product(5L, "Book", 99.99, 1L, "black")
-        );
     }
 }
