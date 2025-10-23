@@ -10,11 +10,11 @@ public class ProductService implements IProductService {
 
     public static List<Product> getProducts() {
         return List.of(
-                new Product(1L, "Laptop", 999.99, 1L, "black"),
-                new Product(2L, "Phone", 399.99, 1L, "black"),
-                new Product(3L, "Headphones", 199.99, 1L, "black"),
-                new Product(4L, "Tablet", 599.99, 1L, "black"),
-                new Product(5L, "Book", 99.99, 1L, "black")
+                new Product(1L, "Lightsaber", 999.99, 1L, "blue"),
+                new Product(2L, "Millennium Falcon", 399.99, 1L, "grey"),
+                new Product(3L, "Stormtrooper Helmet", 199.99, 1L, "white"),
+                new Product(4L, "Blaster", 599.99, 1L, "black"),
+                new Product(5L, "Jedi Book", 99.99, 1L, "brown")
         );
     }
 
