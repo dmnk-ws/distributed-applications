@@ -57,4 +57,12 @@ public class ProductController {
 
         return ResponseEntity.ok(product);
     }
+
+    @PostMapping("/create-js")
+    public ResponseEntity<Product> createJS(@RequestBody Product product) {
+        product.setId(counter.incrementAndGet());
+        ProductService.add(product);
+
+        return ResponseEntity.ok(product);
+    }
 }
