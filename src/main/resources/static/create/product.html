@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+    <title>dist-app</title>
+</head>
+<body>
+<form action="/products/create-params" method="post">
+    <div>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required />
+    </div>
+    <div>
+        <label for="price">Price</label>
+        <input type="number" name="price" id="price" required />
+    </div>
+    <div>
+        <label for="size">Size</label>
+        <input type="number" name="size" id="size" required />
+    </div>
+    <div>
+        <label for="color">Color</label>
+        <input type="text" name="color" id="color" />
+    </div>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

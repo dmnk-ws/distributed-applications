@@ -1,13 +1,16 @@
 package com.example.dist_app.user;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
+    private final AtomicLong counter = new AtomicLong(6);
     private final IUserService userService;
 
     public UserController(IUserService userService) {
@@ -25,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public User create(
+    public ResponseEntity<User> create(
         @RequestParam String firstname,
         @RequestParam String lastname,
         @RequestParam String email,
@@ -36,22 +39,22 @@ public class UserController {
         @RequestParam Gender gender
     ) {
         User user = new User(
-            6L,
-                firstname,
-                lastname,
-                email,
-                new Address(
-                    6L,
-                    zipcode,
-                    city,
-                    state,
-                    country
-                ),
-                gender
+            counter.incrementAndGet(),
+            firstname,
+            lastname,
+            email,
+            new Address(
+                6L,
+                zipcode,
+                city,
+                state,
+                country
+            ),
+            gender
         );
 
-        UserService.addUser(user);
+        UserService.add(user);
 
-        return user;
+        return ResponseEntity.ok(user);
     }
 }

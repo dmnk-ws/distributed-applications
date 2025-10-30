@@ -2,20 +2,29 @@ package com.example.dist_app.products;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
 
+    private static final List<Product> products = new ArrayList<>(
+        List.of(
+            new Product(1L, "Lightsaber", 999.99, 1L, "blue"),
+            new Product(2L, "Millennium Falcon", 399.99, 1L, "grey"),
+            new Product(3L, "Stormtrooper Helmet", 199.99, 1L, "white"),
+            new Product(4L, "Blaster", 599.99, 1L, "black"),
+            new Product(5L, "Jedi Book", 99.99, 1L, "brown")
+        )
+    );
+
     public static List<Product> getProducts() {
-        return List.of(
-                new Product(1L, "Lightsaber", 999.99, 1L, "blue"),
-                new Product(2L, "Millennium Falcon", 399.99, 1L, "grey"),
-                new Product(3L, "Stormtrooper Helmet", 199.99, 1L, "white"),
-                new Product(4L, "Blaster", 599.99, 1L, "black"),
-                new Product(5L, "Jedi Book", 99.99, 1L, "brown")
-        );
+        return ProductService.products;
+    }
+
+    public static void add(Product product) {
+        ProductService.products.add(product);
     }
 
     public Product getProductById(Long id) {

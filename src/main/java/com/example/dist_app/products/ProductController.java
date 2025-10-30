@@ -1,13 +1,16 @@
 package com.example.dist_app.products;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
+    private final AtomicLong counter = new AtomicLong(6);
     private final IProductService productService;
 
     public ProductController(IProductService productService) {
@@ -35,4 +38,23 @@ public class ProductController {
         return this.productService.filter(id, name, price, size, color);
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<Product> create(
+        @RequestParam String name,
+        @RequestParam Double price,
+        @RequestParam Long size,
+        @RequestParam String color
+    ) {
+        Product product = new Product(
+            counter.incrementAndGet(),
+            name,
+            price,
+            size,
+            color
+        );
+
+        ProductService.add(product);
+
+        return ResponseEntity.ok(product);
+    }
 }

@@ -22,7 +22,7 @@ public class UserService implements IUserService {
         return UserService.users;
     }
 
-    public static void addUser(User user) {
+    public static void add(User user) {
         UserService.users.add(user);
     }
 
