@@ -60,10 +60,13 @@ public class ProductController {
 
     @PostMapping("/create-js")
     public ResponseEntity<Product> createJS(@RequestBody Product product) {
-        product.setId(counter.incrementAndGet());
+        Long id = counter.incrementAndGet();
+        product.setId(id);
         ProductService.add(product);
 
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok(
+            this.productService.getProductById(id)
+        );
     }
 
     @DeleteMapping("/delete/{id}")
@@ -71,5 +74,17 @@ public class ProductController {
         List<Product> products = ProductService.delete(id);
 
         return ResponseEntity.ok(products);
+    }
+
+    @PutMapping("update/{id}")
+    public ResponseEntity<Product> update(
+        @PathVariable Long id,
+        @RequestBody Product product
+    ) {
+        ProductService.update(id, product);
+
+        return ResponseEntity.ok(
+            this.productService.getProductById(id)
+        );
     }
 }

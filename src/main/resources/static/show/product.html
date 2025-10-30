@@ -3,11 +3,43 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
         <title>dist-app</title>
+        <style>
+            .grid {
+                display: grid;
+                grid-template-columns: 100px auto;
+                column-gap: 10px;
+                row-gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .grid > p {
+                border-bottom: 1px solid #ccc;
+            }
+
+            .actions {
+                display: flex;
+                gap: 20px;
+            }
+        </style>
     </head>
     <body>
-        <h1 id="name"></h1>
-        <input type="hidden" id="id" value="">
-        <button disabled id="delete">Delete</button>
+        <main>
+            <a href="/dashboard/products.html">Back to products</a>
+            <h1 id="name"></h1>
+            <div class="grid">
+                <p>Price</p>
+                <p id="price"></p>
+                <p>Size</p>
+                <p id="size"></p>
+                <p>Color</p>
+                <p id="color"></p>
+            </div>
+            <input type="hidden" id="id" value="">
+            <div class="actions">
+                <a id="update" href="/dashboard/products.html">Update</a>
+                <button disabled id="delete">Delete</button>
+            </div>
+        </main>
     </body>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
@@ -18,6 +50,10 @@
             .then(product => {
                 window.document.getElementById("name").textContent = product.name;
                 window.document.getElementById("id").value = product.id;
+                window.document.getElementById("price").textContent = product.price;
+                window.document.getElementById("size").textContent = product.size;
+                window.document.getElementById("color").textContent = product.color;
+                window.document.getElementById("update").href = `/update/product.html?id=${product.id}`;
                 window.document.getElementById("delete").disabled = false;
             })
     </script>

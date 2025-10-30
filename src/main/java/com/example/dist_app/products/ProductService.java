@@ -33,6 +33,19 @@ public class ProductService implements IProductService {
         return ProductService.getProducts();
     }
 
+    public static void update(Long id, Product product) {
+        for (Product p : getProducts()) {
+            if (p.getId().equals(id)) {
+                p.setName(product.getName());
+                p.setPrice(product.getPrice());
+                p.setSize(product.getSize());
+                p.setColor(product.getColor());
+
+                break;
+            }
+        }
+    }
+
     public Product getProductById(Long id) {
         for (Product product : ProductService.getProducts()) {
             if (product.getId().equals(id)) {

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+        <title>dist-app</title>
+    </head>
+    <body>
+        <form id="product-update" autocomplete="off">
+            <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value="" required />
+            </div>
+            <div>
+                <label for="price">Price</label>
+                <input type="text" name="price" id="price" value="" required />
+            </div>
+            <div>
+                <label for="size">Size</label>
+                <input type="number" name="size" id="size" value="" required />
+            </div>
+            <input type="hidden" name="id" id="id" value="" />
+            <div>
+                <label for="color">Color</label>
+                <input type="text" name="color" id="color" value="" required />
+            </div>
+            <button disabled id="submit" type="submit">Submit</button>
+        </form>
+    </body>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get("id");
+
+        fetch(`/products/${productId}`)
+            .then(response => response.json())
+            .then(product => {
+                window.document.getElementById("name").value = product.name;
+                window.document.getElementById("price").value = product.price;
+                window.document.getElementById("size").value = product.size;
+                window.document.getElementById("color").value = product.color;
+                window.document.getElementById("id").value = product.id;
+                window.document.getElementById("submit").disabled = false;
+            })
+    </script>
+    <script>
+        const form = window.document.getElementById("product-update");
+
+        form.addEventListener("submit", formSubmit);
+
+        function formSubmit(e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+            let object = {};
+            formData.forEach((value, key) => {
+                object[key] = value;
+            });
+
+            fetch(`/products/update/${object.id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(object),
+                }
+            )
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Product could not be created");
+                }
+
+                return response.json();
+            })
+            .then((product) => {
+                window.location.href = `/show/product.html?id=${product.id}`;
+            })
+            .catch((error) => console.log(error))
+        }
+    </script>
+</html>
