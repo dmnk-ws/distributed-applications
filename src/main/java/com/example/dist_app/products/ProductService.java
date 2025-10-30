@@ -27,6 +27,12 @@ public class ProductService implements IProductService {
         ProductService.products.add(product);
     }
 
+    public static List<Product> delete(Long id) {
+        ProductService.products.removeIf(product -> product.getId().equals(id));
+
+        return ProductService.getProducts();
+    }
+
     public Product getProductById(Long id) {
         for (Product product : ProductService.getProducts()) {
             if (product.getId().equals(id)) {

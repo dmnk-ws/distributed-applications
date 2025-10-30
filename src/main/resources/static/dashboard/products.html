@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+        <title>dist-app</title>
+    </head>
+    <body>
+        <a href="/dashboard/dashboard.html">Back to dashboard</a>
+        <h1>Products</h1>
+        <ol id="product-list"></ol>
+    </body>
+    <script>
+        fetch("/products/")
+            .then((response) => response.json())
+            .then((products) => {
+                const productsList = window.document.getElementById('product-list');
+
+                products.forEach(product => {
+                    const li = window.document.createElement('li');
+                    const link = window.document.createElement('a');
+                    link.href = `/show/product.html?id=${product.id}`;
+                    link.textContent = product.name;
+
+                    li.appendChild(link);
+                    productsList.appendChild(li);
+                });
+            }).catch((error) => console.log(error));
+    </script>
+</html>

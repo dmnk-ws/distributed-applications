@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+        <title>dist-app</title>
+    </head>
+    <body>
+        <h1 id="name"></h1>
+        <input type="hidden" id="id" value="">
+        <button disabled id="delete">Delete</button>
+    </body>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get("id");
+
+        fetch(`/products/${productId}`)
+            .then(response => response.json())
+            .then(product => {
+                window.document.getElementById("name").textContent = product.name;
+                window.document.getElementById("id").value = product.id;
+                window.document.getElementById("delete").disabled = false;
+            })
+    </script>
+    <script>
+        document.getElementById("delete").addEventListener("click", () => {
+            const id = document.getElementById("id").value;
+
+            fetch(`/products/delete/${id}`,
+                {
+                    method: "DELETE",
+                }
+            )
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Product could not be deleted")
+                }
+
+                alert(`Product was successfully deleted`);
+                window.location.replace("/dashboard/products.html");
+            })
+            .catch((error) => console.log(error))
+        })
+
+    </script>
+</html>
