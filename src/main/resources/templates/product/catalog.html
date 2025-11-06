@@ -14,6 +14,7 @@
     </style>
 </head>
     <body>
+        <a href="/dashboard/dashboard.html">Back to dashboard</a>
         <h1 th:text="'Browse our ' + ${products.size()} + ' products'">Browse our products</h1>
         <div style="overflow-x:auto;">
             <table>
@@ -24,6 +25,7 @@
                         <th>Size</th>
                         <th>Color</th>
                         <th>Link</th>
+                        <th th:if="${edit}">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,9 +37,35 @@
                         <td>
                             <a th:href="'/mvc/product/' + ${product.id}">View details</a>
                         </td>
+                        <td th:if="${edit}">
+                            <input type="hidden" id="id" th:value="${product.id}">
+                            <button id="delete">Delete</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </body>
+    <script>
+        document.getElementById("delete").addEventListener("click", () => {
+            const id = document.getElementById("id").value;
+            console.log(id);
+
+            fetch(`/rest/products/delete/${id}`,
+                {
+                    method: "DELETE",
+                }
+            )
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Product could not be deleted")
+                    }
+
+                    alert(`Product was successfully deleted`);
+                    window.location.replace("/mvc/products?edit=true");
+                })
+                .catch((error) => console.log(error))
+        })
+
+    </script>
 </html>
