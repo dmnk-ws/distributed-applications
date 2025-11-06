@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+    <title>dist-app</title>
+    <style>
+        table {
+            width: 100%;
+        }
+
+        th {
+            text-align: start;
+        }
+    </style>
+</head>
+    <body>
+        <h1 th:text="'Browse our ' + ${products.size()} + ' products'">Browse our products</h1>
+        <div style="overflow-x:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Size</th>
+                        <th>Color</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td th:text="${product.size}"></td>
+                        <td th:text="${product.color}"></td>
+                        <td>
+                            <a th:href="'/mvc/product/' + ${product.id}">View details</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

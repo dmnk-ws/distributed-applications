@@ -11,7 +11,7 @@
         <ol id="product-list"></ol>
     </body>
     <script>
-        fetch("/products/")
+        fetch("/rest/products/")
             .then((response) => response.json())
             .then((products) => {
                 const productsList = window.document.getElementById('product-list');

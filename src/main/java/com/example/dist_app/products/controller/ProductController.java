@@ -1,5 +1,8 @@
-package com.example.dist_app.products;
+package com.example.dist_app.products.controller;
 
+import com.example.dist_app.products.IProductService;
+import com.example.dist_app.products.Product;
+import com.example.dist_app.products.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/rest/products")
 public class ProductController {
 
     private final AtomicLong counter = new AtomicLong(6);

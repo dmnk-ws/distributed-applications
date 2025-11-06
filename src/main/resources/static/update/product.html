@@ -31,7 +31,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get("id");
 
-        fetch(`/products/${productId}`)
+        fetch(`/rest/products/${productId}`)
             .then(response => response.json())
             .then(product => {
                 window.document.getElementById("name").value = product.name;

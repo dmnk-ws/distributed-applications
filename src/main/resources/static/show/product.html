@@ -45,7 +45,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get("id");
 
-        fetch(`/products/${productId}`)
+        fetch(`/rest/products/${productId}`)
             .then(response => response.json())
             .then(product => {
                 window.document.getElementById("name").textContent = product.name;
@@ -61,7 +61,7 @@
         document.getElementById("delete").addEventListener("click", () => {
             const id = document.getElementById("id").value;
 
-            fetch(`/products/delete/${id}`,
+            fetch(`/rest/products/delete/${id}`,
                 {
                     method: "DELETE",
                 }

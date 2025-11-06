@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+        <title>dist-app</title>
+        <style>
+            .grid {
+                display: grid;
+                grid-template-columns: 100px auto;
+                column-gap: 10px;
+                row-gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .grid > p {
+                border-bottom: 1px solid #ccc;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <a href="/mvc/products/">Back to catalog</a>
+            <h1 id="name" th:text="${product.name}">Product</h1>
+            <div class="grid">
+                <p>Price</p>
+                <p id="price" th:text="${product.price}"></p>
+                <p>Size</p>
+                <p id="size" th:text="${product.size}"></p>
+                <p>Color</p>
+                <p id="color" th:text="${product.color}"></p>
+            </div>
+        </main>
+    </body>
+</html>
