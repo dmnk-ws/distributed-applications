@@ -1,0 +1,66 @@
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+table thead tr:first-child th:first-child {
+    border-top-left-radius: 20px;
+}
+
+table thead tr:first-child th:last-child {
+    border-top-right-radius: 20px;
+}
+
+table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 20px;
+}
+
+table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 20px;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px 25px 8px 25px;
+}
+
+th:not(:last-child), td:not(:last-child) {
+    border-right: none;
+}
+
+tr:not(:last-child) th,
+tr:not(:last-child) td {
+    border-bottom: none;
+}
+
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #5ca7c4;
+    color: white;
+}
+
+#delete {
+    border-color: red;
+}
+
+#delete:hover {
+    background: red none;
+    color: white;
+}
+
+.card {
+    padding: 0;
+}

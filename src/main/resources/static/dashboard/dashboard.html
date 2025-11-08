@@ -4,33 +4,63 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
         <title>dist-app</title>
-        <style>
-            .container {
-                display: flex;
-                flex-direction: column;
-                padding-bottom: 20px;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="../css/reset.css">
+        <link rel="stylesheet" type="text/css" href="../css/styles.css">
+        <link rel="stylesheet" type="text/css" href="../css/nav.css">
     </head>
     <body>
-        <a href="/index.html">Back to index</a>
-        <h1>Dashboard</h1>
+        <header>
+            <nav>
+                <h3>
+                    <a href="/index.html">
+                        My Webshop
+                    </a>
+                </h3>
+                <ul class="nav-links">
+                    <li class="nav-button">
+                        <a href="/dashboard/dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-button">
+                        <a href="/mvc/products">Catalog</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
         <main class="container">
-            <section class="container">
-                <h2>Products</h2>
-                <a href="/products/">Fetch products</a>
-                <a href="/dashboard/products.html">Show product list</a>
-                <a href="/create/product.html">Add product with params</a>
-                <a href="/create/product-js.html">Add product with body</a>
-                <a href="/mvc/products">View Catalog</a>
-                <a href="/mvc/products?edit=true">View editable Catalog</a>
-            </section>
-            <section class="container">
-                <h2>Users</h2>
-                <a href="/users/">Fetch users</a>
-                <a href="/dashboard/users.html">Show user list</a>
-                <a href="/create/user.html">Add user</a>
-            </section>
+            <h1>Dashboard</h1>
+            <div class="flex">
+                <section class="card">
+                    <h2>Product management</h2>
+                    <ul class="card-content">
+                        <li>
+                            <a class="button" href="/rest/products/">Fetch REST products</a>
+                        </li>
+                        <li>
+                            <a class="button" href="/dashboard/products.html">Show product list</a>
+                        </li>
+                        <li>
+                            <a class="button" href="/create/product.html">Add product with params</a>
+                        </li>
+                        <li>
+                            <a class="button" href="/create/product-js.html">Add product with body</a>
+                        </li>
+                    </ul>
+                </section>
+                <section class="card">
+                    <h2>User management</h2>
+                    <ul class="card-content">
+                        <li>
+                            <a class="button" href="/users/">Fetch users</a>
+                        </li>
+                        <li>
+                            <a class="button" href="/dashboard/users.html">Show user list</a>
+                        </li>
+                        <li>
+                            <a class="button" href="/create/user.html">Add user</a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
         </main>
     </body>
 </html>

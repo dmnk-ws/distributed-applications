@@ -4,27 +4,83 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
         <title>dist-app</title>
+        <link rel="stylesheet" href="/css/reset.css">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/nav.css">
+        <style>
+            form div {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            label {
+                font-weight: bold;
+                font-size: 0.9em;
+            }
+
+            input {
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1em;
+            }
+
+            input:focus {
+                outline: none;
+                border-color: #5ca7c4;
+                box-shadow: 0 0 0 2px rgba(92, 167, 196, 0.2);
+            }
+
+            .button {
+                margin-top: 20px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+        </style>
     </head>
     <body>
-        <form id="product-form-js" method="post" autocomplete="off">
-            <div>
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" required />
+        <header>
+            <nav>
+                <h3>
+                    <a href="/index.html">
+                        My Webshop
+                    </a>
+                </h3>
+                <ul class="nav-links">
+                    <li>
+                        <a href="/dashboard/dashboard.html">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/mvc/products">Catalog</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main class="container">
+            <h1>Create Product</h1>
+            <div class="card">
+                <form id="product-form-js" method="post" autocomplete="off" class="card-content">
+                    <div>
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" required />
+                    </div>
+                    <div>
+                        <label for="price">Price</label>
+                        <input type="text" name="price" id="price" required />
+                    </div>
+                    <div>
+                        <label for="size">Size</label>
+                        <input type="number" name="size" id="size" required />
+                    </div>
+                    <div>
+                        <label for="color">Color</label>
+                        <input type="text" name="color" id="color" required />
+                    </div>
+                    <button type="submit" class="button">Submit</button>
+                </form>
             </div>
-            <div>
-                <label for="price">Price</label>
-                <input type="text" name="price" id="price" required />
-            </div>
-            <div>
-                <label for="size">Size</label>
-                <input type="number" name="size" id="size" required />
-            </div>
-            <div>
-                <label for="color">Color</label>
-                <input type="text" name="color" id="color" required />
-            </div>
-            <button type="submit">Submit</button>
-        </form>
+        </main>
     </body>
     <script>
         const BASE_URL = "/rest/products";

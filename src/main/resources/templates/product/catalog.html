@@ -1,50 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
-    <title>dist-app</title>
-    <style>
-        table {
-            width: 100%;
-        }
 
-        th {
-            text-align: start;
-        }
-    </style>
-</head>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+        <title>dist-app</title>
+        <link rel="stylesheet" type="text/css" href="/css/reset.css">
+        <link rel="stylesheet" type="text/css" href="/css/styles.css">
+        <link rel="stylesheet" type="text/css" href="/css/nav.css">
+        <link rel="stylesheet" type="text/css" href="/css/catalog.css">
+    </head>
     <body>
-        <a href="/dashboard/dashboard.html">Back to dashboard</a>
-        <h1 th:text="'Browse our ' + ${products.size()} + ' products'">Browse our products</h1>
-        <div style="overflow-x:auto;">
-            <table>
-                <thead>
+        <header>
+            <nav>
+                <h3>
+                    <a href="/index.html">
+                        My Webshop
+                    </a>
+                </h3>
+                <ul class="nav-links">
+                    <li>
+                        <a href="/dashboard/dashboard.html">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/mvc/products">Catalog</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main class="container">
+            <h1 th:text="'Browse our ' + ${products.size()} + ' products'">Browse our products</h1>
+            <div class="flex">
+                <a class="button" href="/create/product-js.html">Create product</a>
+            </div>
+            <div style="overflow-x:auto;" class="card">
+                <table>
+                    <thead>
                     <tr>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Size</th>
                         <th>Color</th>
-                        <th>Link</th>
-                        <th th:if="${edit}">Actions</th>
+                        <th>Actions</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr th:each="product : ${products}">
                         <td th:text="${product.name}"></td>
                         <td th:text="${product.price}"></td>
                         <td th:text="${product.size}"></td>
                         <td th:text="${product.color}"></td>
-                        <td>
-                            <a th:href="'/mvc/product/' + ${product.id}">View details</a>
-                        </td>
-                        <td th:if="${edit}">
-                            <input type="hidden" id="id" th:value="${product.id}">
-                            <button id="delete">Delete</button>
+                        <td class="flex">
+                            <a class="button" th:href="'/mvc/product/' + ${product.id}">View details</a>
+                            <div th:if="${edit}">
+                                <input type="hidden" id="id" th:value="${product.id}">
+                                <button id="delete" class="button">Delete</button>
+                            </div>
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
+        </main>
     </body>
     <script>
         document.getElementById("delete").addEventListener("click", () => {

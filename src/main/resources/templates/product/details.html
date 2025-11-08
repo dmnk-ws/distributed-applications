@@ -4,31 +4,50 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
         <title>dist-app</title>
+        <link rel="stylesheet" type="text/css" href="/css/reset.css">
+        <link rel="stylesheet" type="text/css" href="/css/styles.css">
+        <link rel="stylesheet" type="text/css" href="/css/nav.css">
         <style>
-            .grid {
+            .product-details {
                 display: grid;
-                grid-template-columns: 100px auto;
-                column-gap: 10px;
-                row-gap: 15px;
-                margin-bottom: 20px;
+                grid-template-columns: auto 1fr;
+                gap: 0.75rem 1.5rem;
             }
 
-            .grid > p {
-                border-bottom: 1px solid #ccc;
+            .product-details dt {
+                font-weight: 600;
             }
         </style>
     </head>
     <body>
-        <main>
-            <a href="/mvc/products">Back to catalog</a>
+        <header>
+            <nav>
+                <h3>
+                    <a href="/index.html">
+                        My Webshop
+                    </a>
+                </h3>
+                <ul class="nav-links">
+                    <li class="nav-button">
+                        <a href="/dashboard/dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-button">
+                        <a href="/mvc/products">Catalog</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main class="container">
             <h1 id="name" th:text="${product.name}">Product</h1>
-            <div class="grid">
-                <p>Price</p>
-                <p id="price" th:text="${product.price}"></p>
-                <p>Size</p>
-                <p id="size" th:text="${product.size}"></p>
-                <p>Color</p>
-                <p id="color" th:text="${product.color}"></p>
+            <div class="card">
+                <dl class="product-details">
+                    <dt>Price</dt>
+                    <dd id="price" th:text="${product.price}"></dd>
+                    <dt>Size</dt>
+                    <dd id="size" th:text="${product.size}"></dd>
+                    <dt>Color</dt>
+                    <dd id="color" th:text="${product.color}"></dd>
+                </dl>
             </div>
         </main>
     </body>

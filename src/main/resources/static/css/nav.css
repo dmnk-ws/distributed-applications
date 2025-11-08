@@ -1,0 +1,35 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #5ca7c4;
+    background: linear-gradient(90deg, rgba(92, 167, 196, 1) 0%, rgba(214, 241, 255, 1) 100%);
+}
+
+nav h3 {
+    margin: 0;
+}
+
+nav ul {
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    color: #000;
+}
+
+nav ul li a:hover {
+    color: #444444;
+}
+
+nav a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+}
