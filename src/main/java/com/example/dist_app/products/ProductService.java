@@ -4,11 +4,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
 
+    private final AtomicLong productIdCounter = new AtomicLong(6);
     private final List<Product> products = new ArrayList<>(
         List.of(
             new Product(1L, "Lightsaber", 999.99, 1L, "blue"),
@@ -25,6 +27,32 @@ public class ProductService implements IProductService {
 
     public void add(Product product) {
         this.products.add(product);
+    }
+
+    public Product create(
+        String name,
+        Double price,
+        Long size,
+        String color
+    ) {
+        Product product = new Product(
+            this.productIdCounter.incrementAndGet(),
+            name,
+            price,
+            size,
+            color
+        );
+
+        this.products.add(product);
+
+        return product;
+    }
+
+    public Product create(Product product) {
+        product.setId(this.productIdCounter.incrementAndGet());
+        this.products.add(product);
+
+        return product;
     }
 
     public List<Product> delete(Long id) {

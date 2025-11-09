@@ -4,10 +4,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class UserService implements IUserService {
 
+    private final AtomicLong userIdCounter = new AtomicLong(6);
+    private final AtomicLong addressIdCounter = new AtomicLong(6);
     private final List<User> users = new ArrayList<>(
         List.of(
             new User(1L, "Sheev", "Palpatine", "sheev.palpatine@example.org", new Address(1L, "00001", "Imperial Palace", "Coruscant", "Galactic Empire"), Gender.MALE),
@@ -24,6 +27,38 @@ public class UserService implements IUserService {
 
     public void add(User user) {
         this.users.add(user);
+    }
+
+    public User create(
+        String firstname,
+        String lastname,
+        String email,
+        String zipcode,
+        String city,
+        String state,
+        String country,
+        Gender gender
+    ) {
+        Address address = new Address(
+            this.addressIdCounter.incrementAndGet(),
+            zipcode,
+            city,
+            state,
+            country
+        );
+
+        User user = new User(
+            this.userIdCounter.incrementAndGet(),
+            firstname,
+            lastname,
+            email,
+            address,
+            gender
+        );
+
+        this.users.add(user);
+
+        return user;
     }
 
     public List<Address> getAddresses() {

@@ -4,13 +4,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final AtomicLong counter = new AtomicLong(6);
     private final IUserService userService;
 
     public UserController(IUserService userService) {
@@ -38,22 +36,16 @@ public class UserController {
         @RequestParam(required = false) String country,
         @RequestParam Gender gender
     ) {
-        User user = new User(
-            counter.incrementAndGet(),
+        User user = this.userService.create(
             firstname,
             lastname,
             email,
-            new Address(
-                6L,
-                zipcode,
-                city,
-                state,
-                country
-            ),
+            zipcode,
+            city,
+            state,
+            country,
             gender
         );
-
-        this.userService.add(user);
 
         return ResponseEntity.ok(user);
     }

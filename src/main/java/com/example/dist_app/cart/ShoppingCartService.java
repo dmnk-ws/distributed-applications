@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class ShoppingCartService implements IShoppingCartService {
 
-    private final AtomicLong counter = new AtomicLong(3);
+    private final AtomicLong cartItemIdCounter = new AtomicLong(3);
     private final ProductService productService;
     private final ShoppingCart shoppingCart = new ShoppingCart(
         1L,
@@ -63,7 +63,7 @@ public class ShoppingCartService implements IShoppingCartService {
         } else {
             this.shoppingCart.addItem(
                 new CartItem(
-                    this.counter.incrementAndGet(),
+                    this.cartItemIdCounter.incrementAndGet(),
                     product,
                     1L
                 )

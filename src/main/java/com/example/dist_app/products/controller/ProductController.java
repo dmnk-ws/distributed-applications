@@ -6,13 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/rest/products")
 public class ProductController {
 
-    private final AtomicLong counter = new AtomicLong(6);
     private final IProductService productService;
 
     public ProductController(IProductService productService) {
@@ -47,28 +45,16 @@ public class ProductController {
         @RequestParam Long size,
         @RequestParam String color
     ) {
-        Product product = new Product(
-            counter.incrementAndGet(),
-            name,
-            price,
-            size,
-            color
-        );
-
-        this.productService.add(product);
+        Product product = this.productService.create(name, price, size, color);
 
         return ResponseEntity.ok(product);
     }
 
     @PostMapping("/create-js")
     public ResponseEntity<Product> createJS(@RequestBody Product product) {
-        Long id = counter.incrementAndGet();
-        product.setId(id);
-        this.productService.add(product);
+        Product createdProduct = this.productService.create(product);
 
-        return ResponseEntity.ok(
-            this.productService.getProductById(id)
-        );
+        return ResponseEntity.ok(createdProduct);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -78,7 +64,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Product> update(
         @PathVariable Long id,
         @RequestBody Product product
