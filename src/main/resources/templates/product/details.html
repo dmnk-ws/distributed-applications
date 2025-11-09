@@ -20,26 +20,7 @@
         </style>
     </head>
     <body>
-        <header>
-            <nav>
-                <h3>
-                    <a href="/index.html">
-                        My Webshop
-                    </a>
-                </h3>
-                <ul class="nav-links">
-                    <li>
-                        <a href="/dashboard/dashboard.html">Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="/mvc/products">Catalog</a>
-                    </li>
-                    <li>
-                        <a href="/mvc/cart">Shopping Cart</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+        <header th:replace="fragments/header :: header"></header>
         <main class="container">
             <h1 id="name" th:text="${product.name}">Product</h1>
             <div class="flex">

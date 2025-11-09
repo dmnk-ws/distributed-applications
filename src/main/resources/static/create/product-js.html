@@ -116,8 +116,8 @@
 
                 return response.json();
             })
-            .then((product) => {
-                window.location.href = BASE_URL + "/" + product.id;
+            .then(() => {
+                window.location.href = "/mvc/products";
             })
             .catch((error) => console.log(error))
         }

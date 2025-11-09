@@ -20,26 +20,7 @@
         </style>
     </head>
     <body>
-        <header>
-            <nav>
-                <h3>
-                    <a href="/index.html">
-                        My Webshop
-                    </a>
-                </h3>
-                <ul class="nav-links">
-                    <li>
-                        <a href="/dashboard/dashboard.html">Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="/mvc/products">Catalog</a>
-                    </li>
-                    <li>
-                        <a href="/mvc/cart">Shopping Cart</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+        <header th:replace="fragments/header :: header"></header>
         <main class="container">
             <h1>Your Shopping Cart</h1>
             <div style="overflow-x:auto;" class="card">
