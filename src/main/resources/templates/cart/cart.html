@@ -8,13 +8,13 @@
         <link rel="stylesheet" type="text/css" href="/css/styles.css">
         <link rel="stylesheet" type="text/css" href="/css/nav.css">
         <style>
-            .product-details {
-                display: grid;
-                grid-template-columns: auto 1fr;
-                gap: 0.75rem 1.5rem;
+            .total {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
 
-            .product-details dt {
+            .total dt {
                 font-weight: 600;
             }
         </style>
@@ -41,18 +41,33 @@
             </nav>
         </header>
         <main class="container">
-            <h1 id="name" th:text="${product.name}">Product</h1>
-            <div class="flex">
-                <a class="button" th:href="'/mvc/cart/add/' + ${product.id}">Add to cart</a>
+            <h1>Your Shopping Cart</h1>
+            <div style="overflow-x:auto;" class="card">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Color</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item: ${cart.getCartItems()}">
+                        <td th:text="${item.product.name}"></td>
+                        <td th:text="${item.product.color}"></td>
+                        <td th:text="${item.product.size}"></td>
+                        <td th:text="${item.product.price}"></td>
+                        <td th:text="${item.quantity}"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="card">
-                <dl class="product-details">
-                    <dt>Price</dt>
-                    <dd id="price" th:text="${product.price}"></dd>
-                    <dt>Size</dt>
-                    <dd id="size" th:text="${product.size}"></dd>
-                    <dt>Color</dt>
-                    <dd id="color" th:text="${product.color}"></dd>
+                <dl class="total">
+                    <dt>Total Price</dt>
+                    <dd th:text="${total}"></dd>
                 </dl>
             </div>
         </main>

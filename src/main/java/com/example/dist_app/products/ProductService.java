@@ -58,11 +58,11 @@ public class ProductService implements IProductService {
 
     public List<Product> filter(Long id, String name, Double price, Long size, String color) {
         return ProductService.getProducts().stream()
-                .filter(p -> id == null || p.getId().equals(id))
-                .filter(p -> name == null || p.getName().equalsIgnoreCase(name))
-                .filter(p -> price == null || p.getPrice().equals(price))
-                .filter(p -> size == null || p.getSize().equals(size))
-                .filter(p -> color == null || p.getColor().equalsIgnoreCase(color))
-                .collect(Collectors.toList());
+            .filter(p -> id == null || p.getId().equals(id))
+            .filter(p -> name == null || p.getName().equalsIgnoreCase(name))
+            .filter(p -> price == null || p.getPrice().equals(price))
+            .filter(p -> size == null || p.getSize().equals(size))
+            .filter(p -> color == null || p.getColor().equalsIgnoreCase(color))
+            .collect(Collectors.toList());
     }
 }
