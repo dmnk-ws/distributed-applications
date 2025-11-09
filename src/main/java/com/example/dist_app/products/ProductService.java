@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService implements IProductService {
 
-    private static final List<Product> products = new ArrayList<>(
+    private final List<Product> products = new ArrayList<>(
         List.of(
             new Product(1L, "Lightsaber", 999.99, 1L, "blue"),
             new Product(2L, "Millennium Falcon", 399.99, 1L, "grey"),
@@ -19,22 +19,22 @@ public class ProductService implements IProductService {
         )
     );
 
-    public static List<Product> getProducts() {
-        return ProductService.products;
+    public List<Product> getProducts() {
+        return this.products;
     }
 
-    public static void add(Product product) {
-        ProductService.products.add(product);
+    public void add(Product product) {
+        this.products.add(product);
     }
 
-    public static List<Product> delete(Long id) {
-        ProductService.products.removeIf(product -> product.getId().equals(id));
+    public List<Product> delete(Long id) {
+        this.products.removeIf(product -> product.getId().equals(id));
 
-        return ProductService.getProducts();
+        return this.getProducts();
     }
 
-    public static void update(Long id, Product product) {
-        for (Product p : getProducts()) {
+    public void update(Long id, Product product) {
+        for (Product p : this.getProducts()) {
             if (p.getId().equals(id)) {
                 p.setName(product.getName());
                 p.setPrice(product.getPrice());
@@ -47,7 +47,7 @@ public class ProductService implements IProductService {
     }
 
     public Product getProductById(Long id) {
-        for (Product product : ProductService.getProducts()) {
+        for (Product product : this.getProducts()) {
             if (product.getId().equals(id)) {
                 return product;
             }
@@ -57,7 +57,7 @@ public class ProductService implements IProductService {
     }
 
     public List<Product> filter(Long id, String name, Double price, Long size, String color) {
-        return ProductService.getProducts().stream()
+        return this.getProducts().stream()
             .filter(p -> id == null || p.getId().equals(id))
             .filter(p -> name == null || p.getName().equalsIgnoreCase(name))
             .filter(p -> price == null || p.getPrice().equals(price))

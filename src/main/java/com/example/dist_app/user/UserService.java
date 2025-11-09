@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public class UserService implements IUserService {
 
-    private static final List<User> users = new ArrayList<>(
+    private final List<User> users = new ArrayList<>(
         List.of(
             new User(1L, "Sheev", "Palpatine", "sheev.palpatine@example.org", new Address(1L, "00001", "Imperial Palace", "Coruscant", "Galactic Empire"), Gender.MALE),
             new User(2L, "Obi-Wan", "Kenobi", "obi-wan.kenobi@example.org", new Address(2L, "88420", "Stewjon", "Outer Rim", "Galactic Republic"), Gender.MALE),
@@ -18,15 +18,15 @@ public class UserService implements IUserService {
         )
     );
 
-    public static List<User> getUsers() {
-        return UserService.users;
+    public List<User> getUsers() {
+        return this.users;
     }
 
-    public static void add(User user) {
-        UserService.users.add(user);
+    public void add(User user) {
+        this.users.add(user);
     }
 
-    public static List<Address> getAddresses() {
+    public List<Address> getAddresses() {
         return List.of(
             new Address(1L, "00001", "Imperial Palace", "Coruscant", "Galactic Empire"),
             new Address(2L, "88420", "Stewjon", "Outer Rim", "Galactic Republic"),
@@ -37,7 +37,7 @@ public class UserService implements IUserService {
     }
 
     public User getUserById(Long id) {
-        for (User user : UserService.getUsers()) {
+        for (User user : this.getUsers()) {
             if (user.getId().equals(id)) {
                 return user;
             }

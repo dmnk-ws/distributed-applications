@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/")
     public List<User> index() {
-        return UserService.getUsers();
+        return this.userService.getUsers();
     }
 
     @GetMapping("/{id}")
@@ -53,7 +53,7 @@ public class UserController {
             gender
         );
 
-        UserService.add(user);
+        this.userService.add(user);
 
         return ResponseEntity.ok(user);
     }

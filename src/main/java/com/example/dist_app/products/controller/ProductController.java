@@ -2,7 +2,6 @@ package com.example.dist_app.products.controller;
 
 import com.example.dist_app.products.IProductService;
 import com.example.dist_app.products.Product;
-import com.example.dist_app.products.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +21,7 @@ public class ProductController {
 
     @GetMapping("/")
     public List<Product> index() {
-        return ProductService.getProducts();
+        return this.productService.getProducts();
     }
 
     @GetMapping("/{id}")
@@ -56,7 +55,7 @@ public class ProductController {
             color
         );
 
-        ProductService.add(product);
+        this.productService.add(product);
 
         return ResponseEntity.ok(product);
     }
@@ -65,7 +64,7 @@ public class ProductController {
     public ResponseEntity<Product> createJS(@RequestBody Product product) {
         Long id = counter.incrementAndGet();
         product.setId(id);
-        ProductService.add(product);
+        this.productService.add(product);
 
         return ResponseEntity.ok(
             this.productService.getProductById(id)
@@ -74,7 +73,7 @@ public class ProductController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<List<Product>> delete(@PathVariable Long id) {
-        List<Product> products = ProductService.delete(id);
+        List<Product> products = this.productService.delete(id);
 
         return ResponseEntity.ok(products);
     }
@@ -84,7 +83,7 @@ public class ProductController {
         @PathVariable Long id,
         @RequestBody Product product
     ) {
-        ProductService.update(id, product);
+        this.productService.update(id, product);
 
         return ResponseEntity.ok(
             this.productService.getProductById(id)

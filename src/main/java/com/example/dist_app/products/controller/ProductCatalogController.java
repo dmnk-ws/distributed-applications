@@ -1,7 +1,7 @@
 package com.example.dist_app.products.controller;
 
+import com.example.dist_app.products.IProductService;
 import com.example.dist_app.products.Product;
-import com.example.dist_app.products.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +14,18 @@ import java.util.List;
 @RequestMapping("/mvc/products")
 public class ProductCatalogController {
 
+    private final IProductService productService;
+
+    public ProductCatalogController(IProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping("")
     public String index(
         Model model,
         @RequestParam(required = false, defaultValue = "false") Boolean edit
     ) {
-        List<Product> products = ProductService.getProducts();
+        List<Product> products = this.productService.getProducts();
 
         model.addAttribute("products", products);
         model.addAttribute("edit", edit);
