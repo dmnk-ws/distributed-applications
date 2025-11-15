@@ -1,6 +1,6 @@
 package com.example.dist_app.cart.controller;
 
-import com.example.dist_app.cart.service.IShoppingCartService;
+import com.example.dist_app.cart.facade.IShoppingCartFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,24 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/mvc/cart")
 public class ShoppingCartController {
 
-    private final IShoppingCartService shoppingCartService;
+    private final IShoppingCartFacade shoppingCartFacade;
 
-    public ShoppingCartController(IShoppingCartService shoppingCartService) {
-        this.shoppingCartService = shoppingCartService;
+    public ShoppingCartController(IShoppingCartFacade shoppingCartFacade) {
+        this.shoppingCartFacade = shoppingCartFacade;
     }
 
     @GetMapping("")
     public String cart(Model model) {
-        model.addAttribute("cart", this.shoppingCartService.getShoppingCart());
-        model.addAttribute("total", this.shoppingCartService.getCartTotal());
+        model.addAttribute("cart", this.shoppingCartFacade.getShoppingCart());
+        model.addAttribute("total", this.shoppingCartFacade.getCartTotal());
 
         return "cart/cart";
     }
 
     @GetMapping("/add/{id}")
     public String addToCart(@PathVariable Long id) {
-        this.shoppingCartService.addCartItemByProductId(id);
-
-        return "redirect:/mvc/cart";
+        return this.shoppingCartFacade.addToCart(id);
     }
 }

@@ -10,7 +10,7 @@ public class InventoryService implements IInventoryService {
 
     private final Map<Long, Integer> inventory = new HashMap<>(
         Map.of(
-            1L, 10,
+            1L, 2,
             2L, 5,
             3L, 15,
             4L, 20,
@@ -22,13 +22,13 @@ public class InventoryService implements IInventoryService {
         return inventory.getOrDefault(productId, 0);
     }
 
-    public void reduceStockForProductId(Long productId, int quantity) {
+    public void reduceStockForProductId(Long productId) {
         Integer currentStock = inventory.getOrDefault(productId, 0);
 
-        if (currentStock < quantity) {
+        if (currentStock < 1) {
             return;
         }
 
-        inventory.put(productId, currentStock - quantity);
+        inventory.put(productId, currentStock - 1);
     }
 }
