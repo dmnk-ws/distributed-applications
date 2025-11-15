@@ -1,7 +1,7 @@
-package com.example.dist_app.cart;
+package com.example.dist_app.cart.model;
 
-import com.example.dist_app.products.Product;
-import com.example.dist_app.user.User;
+import com.example.dist_app.products.model.Product;
+import com.example.dist_app.user.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.dist_app.products;
+package com.example.dist_app.products.model;
 
 public class Product {
     private Long id;

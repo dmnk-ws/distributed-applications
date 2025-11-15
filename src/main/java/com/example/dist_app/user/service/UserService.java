@@ -1,5 +1,8 @@
-package com.example.dist_app.user;
+package com.example.dist_app.user.service;
 
+import com.example.dist_app.user.model.Address;
+import com.example.dist_app.user.model.Gender;
+import com.example.dist_app.user.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

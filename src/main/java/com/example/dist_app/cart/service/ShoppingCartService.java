@@ -1,10 +1,12 @@
-package com.example.dist_app.cart;
+package com.example.dist_app.cart.service;
 
-import com.example.dist_app.products.Product;
-import com.example.dist_app.products.ProductService;
-import com.example.dist_app.user.Address;
-import com.example.dist_app.user.Gender;
-import com.example.dist_app.user.User;
+import com.example.dist_app.cart.model.CartItem;
+import com.example.dist_app.cart.model.ShoppingCart;
+import com.example.dist_app.products.model.Product;
+import com.example.dist_app.products.service.ProductService;
+import com.example.dist_app.user.model.Address;
+import com.example.dist_app.user.model.Gender;
+import com.example.dist_app.user.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

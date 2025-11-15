@@ -1,4 +1,6 @@
-package com.example.dist_app.cart;
+package com.example.dist_app.cart.service;
+
+import com.example.dist_app.cart.model.ShoppingCart;
 
 public interface IShoppingCartService {
     ShoppingCart getShoppingCart();

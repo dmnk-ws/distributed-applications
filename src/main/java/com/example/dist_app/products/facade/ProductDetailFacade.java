@@ -1,8 +1,8 @@
 package com.example.dist_app.products.facade;
 
-import com.example.dist_app.products.IProductService;
-import com.example.dist_app.products.Product;
-import com.example.dist_app.products.ProductDetailDTO;
+import com.example.dist_app.products.service.IProductService;
+import com.example.dist_app.products.model.Product;
+import com.example.dist_app.products.model.ProductDetailDTO;
 import com.example.dist_app.service.IInventoryService;
 import org.springframework.stereotype.Service;
 

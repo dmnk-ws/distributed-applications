@@ -1,6 +1,6 @@
 package com.example.dist_app.products.controller;
 
-import com.example.dist_app.products.ProductDetailDTO;
+import com.example.dist_app.products.model.ProductDetailDTO;
 import com.example.dist_app.products.facade.IProductDetailFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

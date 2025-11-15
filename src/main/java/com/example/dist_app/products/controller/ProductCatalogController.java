@@ -1,7 +1,7 @@
 package com.example.dist_app.products.controller;
 
-import com.example.dist_app.products.IProductService;
-import com.example.dist_app.products.Product;
+import com.example.dist_app.products.service.IProductService;
+import com.example.dist_app.products.model.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

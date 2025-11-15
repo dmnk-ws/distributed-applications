@@ -1,5 +1,8 @@
-package com.example.dist_app.user;
+package com.example.dist_app.user.controller;
 
+import com.example.dist_app.user.model.Gender;
+import com.example.dist_app.user.model.User;
+import com.example.dist_app.user.service.IUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

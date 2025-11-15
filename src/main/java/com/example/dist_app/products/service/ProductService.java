@@ -1,5 +1,6 @@
-package com.example.dist_app.products;
+package com.example.dist_app.products.service;
 
+import com.example.dist_app.products.model.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

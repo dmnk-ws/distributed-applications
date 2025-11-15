@@ -1,6 +1,6 @@
-package com.example.dist_app.cart;
+package com.example.dist_app.cart.model;
 
-import com.example.dist_app.products.Product;
+import com.example.dist_app.products.model.Product;
 
 public class CartItem {
     private Long id;

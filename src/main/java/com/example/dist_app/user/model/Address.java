@@ -1,4 +1,4 @@
-package com.example.dist_app.user;
+package com.example.dist_app.user.model;
 
 public class Address {
     private Long id;
