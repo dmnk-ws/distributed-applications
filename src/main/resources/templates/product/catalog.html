@@ -8,11 +8,11 @@
         <link rel="stylesheet" type="text/css" href="/css/styles.css">
         <link rel="stylesheet" type="text/css" href="/css/nav.css">
         <style>
-            #delete {
+            #delete button {
                 border-color: red;
             }
 
-            #delete:hover {
+            #delete button:hover {
                 background: red none;
                 color: white;
             }
@@ -44,9 +44,9 @@
                         <td th:text="${product.color}"></td>
                         <td class="flex">
                             <a class="button" th:href="'/mvc/product/' + ${product.id}">View details</a>
-                            <div th:if="${edit}">
-                                <input type="hidden" id="id" th:value="${product.id}">
-                                <button id="delete" class="button">Delete</button>
+                            <div id="delete" th:if="${edit}">
+                                <input type="hidden" th:id="'id-' + ${product.id}" th:value="${product.id}">
+                                <button th:id="'delete-' + ${product.id}" class="button">Delete</button>
                             </div>
                         </td>
                     </tr>
@@ -56,25 +56,28 @@
         </main>
     </body>
     <script>
-        document.getElementById("delete").addEventListener("click", () => {
-            const id = document.getElementById("id").value;
-            console.log(id);
+        const deleteButtons = document.querySelectorAll('button[id^="delete-"]');
 
-            fetch(`/rest/products/delete/${id}`,
-                {
-                    method: "DELETE",
-                }
-            )
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Product could not be deleted")
+        deleteButtons.forEach((deleteButton) => {
+            deleteButton.addEventListener("click", () => {
+                const productId = deleteButton.id.replace('delete-', '');
+                const id = document.getElementById(`id-${productId}`).value;
+
+                fetch(`/rest/products/delete/${id}`,
+                    {
+                        method: "DELETE",
                     }
+                )
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Product could not be deleted")
+                        }
 
-                    alert(`Product was successfully deleted`);
-                    window.location.replace("/mvc/products?edit=true");
-                })
-                .catch((error) => console.log(error))
-        })
-
+                        alert(`Product was successfully deleted`);
+                        window.location.replace("/mvc/products?edit=true");
+                    })
+                    .catch((error) => console.log(error))
+            })
+        });
     </script>
 </html>
