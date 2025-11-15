@@ -34,6 +34,10 @@
                     <dd id="size" th:text="${product.size}"></dd>
                     <dt>Color</dt>
                     <dd id="color" th:text="${product.color}"></dd>
+                    <dt>Stock</dt>
+                    <dd id="stock" th:text="${product.stock}"></dd>
+                    <dt>Status</dt>
+                    <dd id="status" th:text="${product.isSoldOut() ? 'Sold Out' : 'Available'}"></dd>
                 </dl>
             </div>
         </main>
