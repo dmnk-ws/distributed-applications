@@ -13,4 +13,7 @@ public interface IProductService {
     void update(Long id, Product product);
     Product getProductById(Long id);
     List<Product> filter(Long id, String name, Double price, Long size, String color);
+    List<Product> getBlackProducts();
+    List<Product> getRedProducts();
+    List<Product> getBlueProducts();
 }

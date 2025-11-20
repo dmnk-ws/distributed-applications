@@ -7,6 +7,8 @@
         <link rel="stylesheet" type="text/css" href="/css/reset.css">
         <link rel="stylesheet" type="text/css" href="/css/styles.css">
         <link rel="stylesheet" type="text/css" href="/css/nav.css">
+        <script type="module" src="/js/product/delete.js"></script>
+        <script type="module" src="/js/product/filter.js"></script>
         <style>
             #delete button {
                 border-color: red;
@@ -15,6 +17,20 @@
             #delete button:hover {
                 background: red none;
                 color: white;
+            }
+
+            .filter {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .select {
+                display: flex;
+                flex-direction: column;
+                margin-left: 10px;
+                font-size: 16px;
+                gap: 5px;
             }
         </style>
     </head>
@@ -32,7 +48,18 @@
                         <th>Name</th>
                         <th>Price</th>
                         <th>Size</th>
-                        <th>Color</th>
+                        <th class="filter">
+                            <span>Color</span>
+                            <div class="select">
+                                <label for="color-filter">Filter</label>
+                                <select id="color-filter">
+                                    <option value="all">All</option>
+                                    <option value="black">Black</option>
+                                    <option value="blue">Blue</option>
+                                    <option value="red">Red</option>
+                                </select>
+                            </div>
+                        </th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -55,29 +82,4 @@
             </div>
         </main>
     </body>
-    <script>
-        const deleteButtons = document.querySelectorAll('button[id^="delete-"]');
-
-        deleteButtons.forEach((deleteButton) => {
-            deleteButton.addEventListener("click", () => {
-                const productId = deleteButton.id.replace('delete-', '');
-                const id = document.getElementById(`id-${productId}`).value;
-
-                fetch(`/rest/products/delete/${id}`,
-                    {
-                        method: "DELETE",
-                    }
-                )
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error("Product could not be deleted")
-                        }
-
-                        alert(`Product was successfully deleted`);
-                        window.location.replace("/mvc/products?edit=true");
-                    })
-                    .catch((error) => console.log(error))
-            })
-        });
-    </script>
 </html>

@@ -32,12 +32,12 @@ public class ShoppingCartService implements IShoppingCartService {
             List.of(
                 new CartItem(
                     1L,
-                    new Product(3L, "Stormtrooper Helmet", 199.99, 1L, "white"),
+                    new Product("Stormtrooper Helmet", 199.99, 1L, "white"),
                     3L
                 ),
                 new CartItem(
                     2L,
-                    new Product(4L, "Blaster", 599.99, 1L, "black"),
+                    new Product("Blaster", 599.99, 1L, "black"),
                     1L
                 )
             )

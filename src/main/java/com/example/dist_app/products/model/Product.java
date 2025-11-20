@@ -1,18 +1,31 @@
 package com.example.dist_app.products.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@NamedQueries({
+    @NamedQuery(name="Product.findBlackProducts", query="SELECT p FROM Product p WHERE p.color = 'black'"),
+    @NamedQuery(name="Product.findRedProducts", query="SELECT p FROM Product p WHERE p.color = 'red'"),
+    @NamedQuery(name="Product.findBlueProducts", query="SELECT p FROM Product p WHERE p.color = 'blue'")
+})
 public class Product {
+
+    @Id @GeneratedValue
     private Long id;
     private String name;
     private Double price;
     private Long size;
     private String color;
 
-    public Product(Long id, String name, Double price,  Long size, String color) {
-        this.id = id;
+    public Product(String name, Double price,  Long size, String color) {
         this.name = name;
         this.price = price;
         this.size = size;
         this.color = color;
+    }
+
+    public Product() {
+
     }
 
     public Long getId() {

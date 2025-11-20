@@ -32,4 +32,21 @@ public class ProductCatalogController {
 
         return "product/catalog";
     }
+
+    @GetMapping("/filter")
+    public String filter(
+        Model model,
+        @RequestParam(required = false, defaultValue = "all") String color
+    ) {
+        List<Product> products = switch (color) {
+            case "black" -> this.productService.getBlackProducts();
+            case "red" -> this.productService.getRedProducts();
+            case "blue" -> this.productService.getBlueProducts();
+            default -> this.productService.getProducts();
+        };
+
+        model.addAttribute("products", products);
+
+        return "product/catalog";
+    }
 }

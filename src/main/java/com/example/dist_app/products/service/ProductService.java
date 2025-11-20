@@ -1,33 +1,27 @@
 package com.example.dist_app.products.service;
 
 import com.example.dist_app.products.model.Product;
+import com.example.dist_app.products.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
 
-    private final AtomicLong productIdCounter = new AtomicLong(6);
-    private final List<Product> products = new ArrayList<>(
-        List.of(
-            new Product(1L, "Lightsaber", 999.99, 1L, "blue"),
-            new Product(2L, "Millennium Falcon", 399.99, 1L, "grey"),
-            new Product(3L, "Stormtrooper Helmet", 199.99, 1L, "white"),
-            new Product(4L, "Blaster", 599.99, 1L, "black"),
-            new Product(5L, "Jedi Book", 99.99, 1L, "brown")
-        )
-    );
+    private final ProductRepository repository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.repository = productRepository;
+    }
 
     public List<Product> getProducts() {
-        return this.products;
+        return this.repository.findAll();
     }
 
     public void add(Product product) {
-        this.products.add(product);
+        this.repository.save(product);
     }
 
     public Product create(
@@ -36,62 +30,58 @@ public class ProductService implements IProductService {
         Long size,
         String color
     ) {
-        Product product = new Product(
-            this.productIdCounter.incrementAndGet(),
-            name,
-            price,
-            size,
-            color
-        );
+        Product product = new Product(name, price, size, color);
 
-        this.products.add(product);
+        this.repository.save(product);
 
         return product;
     }
 
     public Product create(Product product) {
-        product.setId(this.productIdCounter.incrementAndGet());
-        this.products.add(product);
+        this.repository.save(product);
 
         return product;
     }
 
     public List<Product> delete(Long id) {
-        this.products.removeIf(product -> product.getId().equals(id));
+        this.repository.deleteById(id);
 
-        return this.getProducts();
+        return this.repository.findAll();
     }
 
     public void update(Long id, Product product) {
-        for (Product p : this.getProducts()) {
-            if (p.getId().equals(id)) {
-                p.setName(product.getName());
-                p.setPrice(product.getPrice());
-                p.setSize(product.getSize());
-                p.setColor(product.getColor());
-
-                break;
-            }
-        }
+        this.repository.findById(id).ifPresent(p -> {
+            p.setName(product.getName());
+            p.setPrice(product.getPrice());
+            p.setSize(product.getSize());
+            p.setColor(product.getColor());
+            this.repository.save(p);
+        });
     }
 
     public Product getProductById(Long id) {
-        for (Product product : this.getProducts()) {
-            if (product.getId().equals(id)) {
-                return product;
-            }
-        }
-
-        return null;
+        return this.repository.findById(id).orElse(null);
     }
 
     public List<Product> filter(Long id, String name, Double price, Long size, String color) {
-        return this.getProducts().stream()
+        return this.repository.findAll().stream()
             .filter(p -> id == null || p.getId().equals(id))
             .filter(p -> name == null || p.getName().equalsIgnoreCase(name))
             .filter(p -> price == null || p.getPrice().equals(price))
             .filter(p -> size == null || p.getSize().equals(size))
             .filter(p -> color == null || p.getColor().equalsIgnoreCase(color))
             .collect(Collectors.toList());
+    }
+
+    public List<Product> getBlackProducts() {
+        return this.repository.findBlackProducts();
+    }
+
+    public List<Product> getRedProducts() {
+        return this.repository.findRedProducts();
+    }
+
+    public List<Product> getBlueProducts() {
+        return this.repository.findBlueProducts();
     }
 }

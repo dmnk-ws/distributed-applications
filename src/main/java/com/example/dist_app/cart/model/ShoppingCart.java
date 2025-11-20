@@ -5,6 +5,7 @@ import com.example.dist_app.user.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ShoppingCart {
     private Long id;
@@ -43,7 +44,7 @@ public class ShoppingCart {
 
     public CartItem getCartItemByProductId(Long id) {
         return this.cartItems.stream()
-            .filter(item -> item.getProduct().getId().equals(id))
+            .filter(item -> Objects.equals(item.getProduct().getId(), id))
             .findFirst()
             .orElse(null);
     }
@@ -68,6 +69,6 @@ public class ShoppingCart {
 
     public boolean hasProduct(Product product) {
         return this.cartItems.stream()
-            .anyMatch(item -> item.getProduct().getId().equals(product.getId()));
+            .anyMatch(item -> Objects.equals(item.getProduct().getId(), product.getId()));
     }
 }
