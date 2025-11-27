@@ -32,12 +32,16 @@
                 font-size: 16px;
                 gap: 5px;
             }
+
+            .actions {
+                margin: 0 45px 0 45px;
+            }
         </style>
     </head>
     <body>
         <header th:replace="fragments/header :: header"></header>
         <main class="container">
-            <h1 th:text="'Browse our ' + ${products.size()} + ' products'">Browse our products</h1>
+            <h1 th:text="'Browse our ' + ${total} + ' products'">Browse our products</h1>
             <div class="flex">
                 <a class="button" href="/create/product-js.html">Create product</a>
             </div>
@@ -79,6 +83,10 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="actions">
+                <a class="button" style="float: left" th:if="${page} > 0" th:href="'/mvc/products/paginated?page=' + ${page - 1}">Prev</a>
+                <a class="button" style="float: right" th:if="${page} < ${totalPages - 1}" th:href="'/mvc/products/paginated?page=' + ${page + 1}">Next</a>
             </div>
         </main>
     </body>

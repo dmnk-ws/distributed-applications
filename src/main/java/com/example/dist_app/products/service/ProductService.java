@@ -2,6 +2,8 @@ package com.example.dist_app.products.service;
 
 import com.example.dist_app.products.model.Product;
 import com.example.dist_app.products.repository.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -83,5 +85,9 @@ public class ProductService implements IProductService {
 
     public List<Product> getBlueProducts() {
         return this.repository.findBlueProducts();
+    }
+
+    public Page<Product> getPagedProducts(Pageable pageable) {
+        return this.repository.findAll(pageable);
     }
 }

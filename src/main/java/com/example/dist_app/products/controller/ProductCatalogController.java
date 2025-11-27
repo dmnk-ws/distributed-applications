@@ -2,6 +2,9 @@ package com.example.dist_app.products.controller;
 
 import com.example.dist_app.products.service.IProductService;
 import com.example.dist_app.products.model.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,5 +51,21 @@ public class ProductCatalogController {
         model.addAttribute("products", products);
 
         return "product/catalog";
+    }
+
+    @GetMapping("/paginated")
+    public String paginated(
+        @PageableDefault(size=3)
+        Pageable pageable,
+        Model model
+    ) {
+        Page<Product> products = this.productService.getPagedProducts(pageable);
+
+        model.addAttribute("products", products.getContent());
+        model.addAttribute("page", pageable.getPageNumber());
+        model.addAttribute("total", products.getTotalElements());
+        model.addAttribute("totalPages", products.getTotalPages());
+
+        return "product/paginated-catalog";
     }
 }
