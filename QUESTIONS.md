@@ -32,6 +32,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 **pom.xml** is a configuration file used by Maven to manage the build process, dependencies and metadata of a Java project.
 
+> **T5)** What happens if I add the docu to a private field instead of the public getter method?
+
+Javadoc on private fields is **not included** in the generated documentation by default. The `javadoc` tool only generates documentation for public and protected members. Since private fields are implementation details not accessible to external code, they are excluded from the public API documentation.
+
+However, documenting private fields can still be useful for:
+- Internal documentation for developers working on the class
+- IDE tooltips when hovering over the field within the same class
+- Using the `-private` flag with the javadoc tool to include them
+
+> **T6)** What part of our code is not included in the JavaDoc?
+
+The following parts are **not included** in the generated Javadoc:
+- **Private members** (fields, methods, constructors) - unless `-private` flag is used
+- **Package-private (default) members** - unless `-package` flag is used
+- **Method body/implementation code** - only signatures and documentation are included
+- **Local variables** inside methods
+- **Comments that are not Javadoc format** (e.g., `//` or `/* */` instead of `/** */`)
 
 # Other questions
 

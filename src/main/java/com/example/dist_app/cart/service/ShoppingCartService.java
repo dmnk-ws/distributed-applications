@@ -13,10 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * Service implementation for managing shopping cart operations.
+ * Provides functionality to retrieve, modify, and calculate totals for a shopping cart.
+ */
 @Service
 public class ShoppingCartService implements IShoppingCartService {
 
+    /**
+     * Counter for generating unique cart item IDs.
+     */
     private final AtomicLong cartItemIdCounter = new AtomicLong(3);
+
+    /**
+     * Service for retrieving product information.
+     */
     private final ProductService productService;
     private final ShoppingCart shoppingCart = new ShoppingCart(
         1L,
@@ -44,14 +55,30 @@ public class ShoppingCartService implements IShoppingCartService {
         )
     );
 
+    /**
+     * Creates a new ShoppingCartService with the specified product service.
+     *
+     * @param productService the product service for retrieving product information
+     */
     public ShoppingCartService(ProductService productService) {
         this.productService = productService;
     }
 
+    /**
+     * Retrieves the current shopping cart.
+     *
+     * @return the shopping cart
+     */
     public ShoppingCart getShoppingCart() {
         return this.shoppingCart;
     }
 
+    /**
+     * Adds a product to the cart by its ID. If the product already exists in the cart,
+     * its quantity is incremented by one. If the product does not exist, nothing happens.
+     *
+     * @param id the ID of the product to add
+     */
     public void addCartItemByProductId(Long id) {
         Product product = this.productService.getProductById(id);
 
@@ -73,6 +100,11 @@ public class ShoppingCartService implements IShoppingCartService {
         }
     }
 
+    /**
+     * Calculates and returns the total price of all items in the cart.
+     *
+     * @return the total price in Euros
+     */
     public Double getCartTotal() {
         return this.shoppingCart.calculateTotal();
     }

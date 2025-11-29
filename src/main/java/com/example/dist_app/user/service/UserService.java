@@ -9,11 +9,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * Service implementation for managing user operations.
+ * Provides functionality to retrieve, create, and manage users and their addresses.
+ */
 @Service
 public class UserService implements IUserService {
 
+    /**
+     * Counter for generating unique user IDs.
+     */
     private final AtomicLong userIdCounter = new AtomicLong(6);
+
+    /**
+     * Counter for generating unique address IDs.
+     */
     private final AtomicLong addressIdCounter = new AtomicLong(6);
+
+    /**
+     * In-memory list of users.
+     */
     private final List<User> users = new ArrayList<>(
         List.of(
             new User(1L, "Sheev", "Palpatine", "sheev.palpatine@example.org", new Address(1L, "00001", "Imperial Palace", "Coruscant", "Galactic Empire"), Gender.MALE),
@@ -24,14 +39,37 @@ public class UserService implements IUserService {
         )
     );
 
+    /**
+     * Retrieves all users.
+     *
+     * @return a list of all users
+     */
     public List<User> getUsers() {
         return this.users;
     }
 
+    /**
+     * Adds an existing user to the system.
+     *
+     * @param user the user to add
+     */
     public void add(User user) {
         this.users.add(user);
     }
 
+    /**
+     * Creates a new user with the specified attributes and adds them to the system.
+     *
+     * @param firstname the first name of the user
+     * @param lastname  the last name of the user
+     * @param email     the email address of the user
+     * @param zipcode   the postal/zip code of the user's address
+     * @param city      the city of the user's address
+     * @param state     the state of the user's address
+     * @param country   the country of the user's address
+     * @param gender    the gender of the user
+     * @return the created user
+     */
     public User create(
         String firstname,
         String lastname,
@@ -64,6 +102,11 @@ public class UserService implements IUserService {
         return user;
     }
 
+    /**
+     * Retrieves a predefined list of sample addresses.
+     *
+     * @return a list of sample addresses
+     */
     public List<Address> getAddresses() {
         return List.of(
             new Address(1L, "00001", "Imperial Palace", "Coruscant", "Galactic Empire"),
@@ -74,6 +117,12 @@ public class UserService implements IUserService {
         );
     }
 
+    /**
+     * Retrieves a user by their ID.
+     *
+     * @param id the ID of the user
+     * @return the user, or null if not found
+     */
     public User getUserById(Long id) {
         for (User user : this.getUsers()) {
             if (user.getId().equals(id)) {

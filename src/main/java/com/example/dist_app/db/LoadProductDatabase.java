@@ -8,10 +8,24 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuration class for initializing the product database with sample data.
+ * Loads initial product records when the application starts.
+ */
 @Configuration
 public class LoadProductDatabase {
+    /**
+     * Logger for this class.
+     */
     private static final Logger log = LoggerFactory.getLogger(LoadProductDatabase.class);
 
+    /**
+     * Creates a CommandLineRunner that preloads sample products into the database.
+     * If the database already contains more than 20 products, no data is loaded.
+     *
+     * @param repository the product repository for data access
+     * @return a CommandLineRunner that initializes the database
+     */
     @Bean
     CommandLineRunner init(ProductRepository repository) {
         if (repository.count() > 20) {
