@@ -1,4 +1,5 @@
 const deleteButtons = window.document.querySelectorAll('button[id^="delete-"]');
+const path = window.location.pathname;
 
 deleteButtons.forEach((deleteButton) => {
     deleteButton.addEventListener("click", () => {
@@ -10,11 +11,11 @@ deleteButtons.forEach((deleteButton) => {
         })
         .then((response) => {
             if (!response.ok) {
-                throw new Error("Product could not be deleted")
+                throw new Error("Product could not be deleted");
             }
 
             alert(`Product was successfully deleted`);
-            window.location.replace("/mvc/products?edit=true");
+            window.location.replace(`${path}?edit=true`);
         })
         .catch((error) => console.log(error))
     });

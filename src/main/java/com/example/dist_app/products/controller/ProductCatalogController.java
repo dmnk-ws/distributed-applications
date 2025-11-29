@@ -55,8 +55,8 @@ public class ProductCatalogController {
 
     @GetMapping("/paginated")
     public String paginated(
-        @PageableDefault(size=3)
-        Pageable pageable,
+        @PageableDefault(size=3) Pageable pageable,
+        @RequestParam(required = false, defaultValue = "false") Boolean edit,
         Model model
     ) {
         Page<Product> products = this.productService.getPagedProducts(pageable);
@@ -65,6 +65,7 @@ public class ProductCatalogController {
         model.addAttribute("page", pageable.getPageNumber());
         model.addAttribute("total", products.getTotalElements());
         model.addAttribute("totalPages", products.getTotalPages());
+        model.addAttribute("edit", edit);
 
         return "product/paginated-catalog";
     }

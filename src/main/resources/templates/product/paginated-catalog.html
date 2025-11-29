@@ -52,16 +52,18 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th>Size</th>
-                            <th class="filter">
-                                <span>Color</span>
-                                <div class="select">
-                                    <label for="color-filter">Filter</label>
-                                    <select id="color-filter">
-                                        <option value="all">All</option>
-                                        <option value="black">Black</option>
-                                        <option value="blue">Blue</option>
-                                        <option value="red">Red</option>
-                                    </select>
+                            <th>
+                                <div class="filter">
+                                    <span>Color</span>
+                                    <div class="select">
+                                        <label for="color-filter">Filter</label>
+                                        <select id="color-filter">
+                                            <option value="all">All</option>
+                                            <option value="black">Black</option>
+                                            <option value="blue">Blue</option>
+                                            <option value="red">Red</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </th>
                             <th>Actions</th>
@@ -73,11 +75,13 @@
                             <td th:text="${product.price}"></td>
                             <td th:text="${product.size}"></td>
                             <td th:text="${product.color}"></td>
-                            <td class="flex">
-                                <a class="button" th:href="'/mvc/product/' + ${product.id}">View details</a>
-                                <div id="delete" th:if="${edit}">
-                                    <input type="hidden" th:id="'id-' + ${product.id}" th:value="${product.id}">
-                                    <button th:id="'delete-' + ${product.id}" class="button">Delete</button>
+                            <td>
+                                <div class="flex">
+                                    <a class="button" th:href="'/mvc/product/' + ${product.id}">View details</a>
+                                    <div id="delete" th:if="${edit}">
+                                        <input type="hidden" th:id="'id-' + ${product.id}" th:value="${product.id}">
+                                        <button th:id="'delete-' + ${product.id}" class="button">Delete</button>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
