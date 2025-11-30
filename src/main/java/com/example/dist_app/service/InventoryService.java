@@ -32,7 +32,7 @@ public class InventoryService implements IInventoryService {
      * @return the stock quantity, or 0 if the product is not found
      */
     public Integer getStockForProductId(Long productId) {
-        return inventory.getOrDefault(productId, 0);
+        return this.inventory.getOrDefault(productId, 0);
     }
 
     /**
@@ -42,12 +42,12 @@ public class InventoryService implements IInventoryService {
      * @param productId the ID of the product
      */
     public void reduceStockForProductId(Long productId) {
-        Integer currentStock = inventory.getOrDefault(productId, 0);
+        Integer currentStock = this.inventory.getOrDefault(productId, 0);
 
         if (currentStock < 1) {
             return;
         }
 
-        inventory.put(productId, currentStock - 1);
+        this.inventory.put(productId, currentStock - 1);
     }
 }
