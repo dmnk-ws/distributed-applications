@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.math.BigDecimal;
+
 /**
  * Configuration class for initializing the product database with sample data.
  * Loads initial product records when the application starts.
@@ -33,12 +35,12 @@ public class LoadProductDatabase {
         }
 
         return args -> {
-            log.info("Preloading " + repository.save(new Product("Lightsaber", 999.99, 1L, "blue")));
-            log.info("Preloading " + repository.save(new Product("Lightsaber", 1999.99, 1L, "red")));
-            log.info("Preloading " + repository.save(new Product("Millennium Falcon", 399.99, 1L, "grey")));
-            log.info("Preloading " + repository.save(new Product("Stormtrooper Helmet", 199.99, 1L, "white")));
-            log.info("Preloading " + repository.save(new Product("Blaster", 599.99, 1L, "black")));
-            log.info("Preloading " + repository.save(new Product("Jedi Book", 99.99, 1L, "brown")));
+            log.info("Preloading " + repository.save(new Product("Lightsaber", new BigDecimal("999.99"), 1L, "blue")));
+            log.info("Preloading " + repository.save(new Product("Lightsaber", new BigDecimal("1999.99"), 1L, "red")));
+            log.info("Preloading " + repository.save(new Product("Millennium Falcon", new BigDecimal("399.99"), 1L, "grey")));
+            log.info("Preloading " + repository.save(new Product("Stormtrooper Helmet", new BigDecimal("199.99"), 1L, "white")));
+            log.info("Preloading " + repository.save(new Product("Blaster", new BigDecimal("599.99"), 1L, "black")));
+            log.info("Preloading " + repository.save(new Product("Jedi Book", new BigDecimal("99.99"), 1L, "brown")));
         };
     }
 }

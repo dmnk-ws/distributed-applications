@@ -119,4 +119,8 @@ If an attribute is private and lacks a public getter, Jackson cannot access it t
 | 6 | **NullPointerException**             | Service or product list is null                               | Ensure service is properly injected; add null checks |
 | 7 | **Unexpected exceptions**            | Any unhandled runtime errors                                  | Return `500 INTERNAL SERVER ERROR`                   |
 
+> **8)** From which java package do we import the `BigDecimal` type?
+
+`import java.math.*`
+
 

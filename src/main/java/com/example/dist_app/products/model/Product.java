@@ -2,6 +2,8 @@ package com.example.dist_app.products.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 /**
  * JPA entity representing a product in the catalog.
  * This class models the core product information stored in the database,
@@ -37,9 +39,9 @@ public class Product {
 
     /**
      * The price of the product in Euros.
-     * Represented as a Double for decimal precision in currency calculations.
+     * Represented as a BigDecimal for decimal precision in currency calculations.
      */
-    private Double price;
+    private BigDecimal price;
 
     /**
      * The size of the product as a numeric value.
@@ -61,7 +63,7 @@ public class Product {
      * @param size the size value of the product
      * @param color the color of the product
      */
-    public Product(String name, Double price,  Long size, String color) {
+    public Product(String name, BigDecimal price,  Long size, String color) {
         this.name = name;
         this.price = price;
         this.size = size;
@@ -114,9 +116,9 @@ public class Product {
     /**
      * Returns the price of this product in Euros.
      *
-     * @return the product price as a Double value
+     * @return the product price as a BigDecimal value
      */
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return this.price;
     }
 
@@ -125,7 +127,7 @@ public class Product {
      *
      * @param price the price in Euros to set
      */
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

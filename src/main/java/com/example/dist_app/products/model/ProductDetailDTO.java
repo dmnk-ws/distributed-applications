@@ -1,5 +1,7 @@
 package com.example.dist_app.products.model;
 
+import java.math.BigDecimal;
+
 /**
  * Data Transfer Object for displaying product details with stock information.
  */
@@ -17,7 +19,7 @@ public class ProductDetailDTO {
     /**
      * The price of the product in Euros.
      */
-    public final Double price;
+    public final BigDecimal price;
 
     /**
      * The size of the product.

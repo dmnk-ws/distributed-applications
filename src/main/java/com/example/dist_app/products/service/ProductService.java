@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,7 +60,7 @@ public class ProductService implements IProductService {
      */
     public Product create(
         String name,
-        Double price,
+        BigDecimal price,
         Long size,
         String color
     ) {
@@ -130,7 +131,7 @@ public class ProductService implements IProductService {
      * @param color the product color to filter by
      * @return a list of products matching the criteria
      */
-    public List<Product> filter(Long id, String name, Double price, Long size, String color) {
+    public List<Product> filter(Long id, String name, BigDecimal price, Long size, String color) {
         return this.repository.findAll().stream()
             .filter(p -> id == null || p.getId().equals(id))
             .filter(p -> name == null || p.getName().equalsIgnoreCase(name))

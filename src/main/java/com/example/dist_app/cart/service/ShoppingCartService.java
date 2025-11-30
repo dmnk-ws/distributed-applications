@@ -9,6 +9,7 @@ import com.example.dist_app.user.model.Gender;
 import com.example.dist_app.user.model.User;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -43,12 +44,12 @@ public class ShoppingCartService implements IShoppingCartService {
             List.of(
                 new CartItem(
                     1L,
-                    new Product("Stormtrooper Helmet", 199.99, 1L, "white"),
+                    new Product("Stormtrooper Helmet", new BigDecimal("199.99"), 1L, "white"),
                     3L
                 ),
                 new CartItem(
                     2L,
-                    new Product("Blaster", 599.99, 1L, "black"),
+                    new Product("Blaster", new BigDecimal("599.99"), 1L, "black"),
                     1L
                 )
             )
@@ -105,7 +106,7 @@ public class ShoppingCartService implements IShoppingCartService {
      *
      * @return the total price in Euros
      */
-    public Double getCartTotal() {
+    public BigDecimal getCartTotal() {
         return this.shoppingCart.calculateTotal();
     }
 }

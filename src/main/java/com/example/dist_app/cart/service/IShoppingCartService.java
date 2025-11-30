@@ -2,6 +2,8 @@ package com.example.dist_app.cart.service;
 
 import com.example.dist_app.cart.model.ShoppingCart;
 
+import java.math.BigDecimal;
+
 /**
  * Service interface for managing shopping cart operations.
  */
@@ -26,5 +28,5 @@ public interface IShoppingCartService {
      *
      * @return the total price in Euros
      */
-    Double getCartTotal();
+    BigDecimal getCartTotal();
 }

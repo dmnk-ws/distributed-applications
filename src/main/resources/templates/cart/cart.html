@@ -12,10 +12,15 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                padding: 0 5px 0 5px;
             }
 
             .total dt {
                 font-weight: 600;
+            }
+
+            .right {
+                text-align: right;
             }
         </style>
     </head>
@@ -30,17 +35,17 @@
                         <th>Name</th>
                         <th>Size</th>
                         <th>Color</th>
-                        <th>Price</th>
                         <th>Quantity</th>
+                        <th>Price</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="item: ${cart.getCartItems()}">
                         <td th:text="${item.product.name}"></td>
-                        <td th:text="${item.product.color}"></td>
-                        <td th:text="${item.product.size}"></td>
-                        <td th:text="${item.product.price}"></td>
-                        <td th:text="${item.quantity}"></td>
+                        <td class="right" th:text="${item.product.color}"></td>
+                        <td class="right" th:text="${item.product.size}"></td>
+                        <td class="right" th:text="${item.quantity}"></td>
+                        <td class="right" th:text="${item.product.price}"></td>
                     </tr>
                     </tbody>
                 </table>

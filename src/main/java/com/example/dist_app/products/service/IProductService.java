@@ -4,6 +4,7 @@ import com.example.dist_app.products.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public interface IProductService {
      * @param color the color of the product
      * @return the created product
      */
-    Product create(String name, Double price, Long size, String color);
+    Product create(String name, BigDecimal price, Long size, String color);
 
     /**
      * Creates and saves a new product from an existing product object.
@@ -77,7 +78,7 @@ public interface IProductService {
      * @param color the product color to filter by
      * @return a list of products matching the criteria
      */
-    List<Product> filter(Long id, String name, Double price, Long size, String color);
+    List<Product> filter(Long id, String name, BigDecimal price, Long size, String color);
 
     /**
      * Retrieves all products with the color black.

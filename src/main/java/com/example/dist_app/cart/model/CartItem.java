@@ -2,6 +2,8 @@ package com.example.dist_app.cart.model;
 
 import com.example.dist_app.products.model.Product;
 
+import java.math.BigDecimal;
+
 /**
  * Represents an item in a shopping cart, containing a product and its quantity.
  */
@@ -97,7 +99,7 @@ public class CartItem {
      *
      * @return the subtotal in Euros
      */
-    public Double getSubTotal() {
-        return this.product.getPrice() * this.quantity;
+    public BigDecimal getSubTotal() {
+        return this.product.getPrice().multiply(BigDecimal.valueOf(this.quantity));
     }
 }

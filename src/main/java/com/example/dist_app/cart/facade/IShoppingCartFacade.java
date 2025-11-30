@@ -2,6 +2,8 @@ package com.example.dist_app.cart.facade;
 
 import com.example.dist_app.cart.model.ShoppingCart;
 
+import java.math.BigDecimal;
+
 /**
  * Facade interface for shopping cart operations, providing a simplified API
  * for controllers to interact with the cart functionality.
@@ -27,5 +29,5 @@ public interface IShoppingCartFacade {
      *
      * @return the total price in Euros
      */
-    Double getCartTotal();
+    BigDecimal getCartTotal();
 }

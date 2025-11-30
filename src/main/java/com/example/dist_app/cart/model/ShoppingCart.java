@@ -3,6 +3,7 @@ package com.example.dist_app.cart.model;
 import com.example.dist_app.products.model.Product;
 import com.example.dist_app.user.model.User;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -119,11 +120,11 @@ public class ShoppingCart {
      *
      * @return the total price in Euros
      */
-    public Double calculateTotal() {
-        double total = 0.0;
+    public BigDecimal calculateTotal() {
+        BigDecimal total = BigDecimal.ZERO;
 
         for (CartItem cartItem : this.cartItems) {
-            total += cartItem.getSubTotal();
+            total = total.add(cartItem.getSubTotal());
         }
 
         return total;

@@ -5,6 +5,7 @@ import com.example.dist_app.products.model.Product;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -64,7 +65,7 @@ public class ProductController {
     public List<Product> filter(
         @RequestParam(required = false) Long id,
         @RequestParam(required = false) String name,
-        @RequestParam(required = false) Double price,
+        @RequestParam(required = false) BigDecimal price,
         @RequestParam(required = false) Long size,
         @RequestParam(required = false) String color
     ) {
@@ -83,7 +84,7 @@ public class ProductController {
     @PostMapping("/create")
     public ResponseEntity<Product> create(
         @RequestParam String name,
-        @RequestParam Double price,
+        @RequestParam BigDecimal price,
         @RequestParam Long size,
         @RequestParam String color
     ) {

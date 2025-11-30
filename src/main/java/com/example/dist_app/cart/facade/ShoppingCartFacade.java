@@ -5,6 +5,8 @@ import com.example.dist_app.cart.service.IShoppingCartService;
 import com.example.dist_app.service.IInventoryService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 /**
  * Facade service that coordinates shopping cart operations with inventory management.
  * This class provides a simplified interface for cart operations by combining
@@ -80,9 +82,9 @@ public class ShoppingCartFacade implements IShoppingCartFacade {
      * Calculates and returns the total price of all items in the shopping cart.
      * The total is computed by summing up the prices of all cart items.
      *
-     * @return the total price of the cart in Euros as a Double value
+     * @return the total price of the cart in Euros as a BigDecimal value
      */
-    public Double getCartTotal() {
+    public BigDecimal getCartTotal() {
         return this.shoppingCartService.getCartTotal();
     }
 }
