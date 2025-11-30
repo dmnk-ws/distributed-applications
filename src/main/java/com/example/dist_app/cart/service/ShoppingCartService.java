@@ -3,7 +3,8 @@ package com.example.dist_app.cart.service;
 import com.example.dist_app.cart.model.CartItem;
 import com.example.dist_app.cart.model.ShoppingCart;
 import com.example.dist_app.products.model.Product;
-import com.example.dist_app.products.service.ProductService;
+import com.example.dist_app.products.service.IProductService;
+import com.example.dist_app.service.IPriceCalculationService;
 import com.example.dist_app.user.model.Address;
 import com.example.dist_app.user.model.Gender;
 import com.example.dist_app.user.model.User;
@@ -29,7 +30,16 @@ public class ShoppingCartService implements IShoppingCartService {
     /**
      * Service for retrieving product information.
      */
-    private final ProductService productService;
+    private final IProductService productService;
+
+    /**
+     * Service for price calculations.
+     */
+    private final IPriceCalculationService priceCalculationService;
+
+    /**
+     * Temporary fixture data.
+     */
     private final ShoppingCart shoppingCart = new ShoppingCart(
         1L,
         new User(
@@ -57,12 +67,14 @@ public class ShoppingCartService implements IShoppingCartService {
     );
 
     /**
-     * Creates a new ShoppingCartService with the specified product service.
+     * Creates a new ShoppingCartService with the specified services.
      *
      * @param productService the product service for retrieving product information
+     * @param priceCalculationService the price calculation service
      */
-    public ShoppingCartService(ProductService productService) {
+    public ShoppingCartService(IProductService productService, IPriceCalculationService  priceCalculationService) {
         this.productService = productService;
+        this.priceCalculationService = priceCalculationService;
     }
 
     /**
@@ -104,9 +116,11 @@ public class ShoppingCartService implements IShoppingCartService {
     /**
      * Calculates and returns the total price of all items in the cart.
      *
-     * @return the total price in Euros
+     * @return the total price in Euros rounded to two digits
      */
     public BigDecimal getCartTotal() {
-        return this.shoppingCart.calculateTotal();
+        return this.priceCalculationService.round(
+            this.shoppingCart.calculateTotal()
+        );
     }
 }
