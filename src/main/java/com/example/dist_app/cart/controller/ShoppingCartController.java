@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 
@@ -41,12 +42,16 @@ public class ShoppingCartController {
     @GetMapping("")
     public String cart(Model model) {
         BigDecimal total = this.shoppingCartFacade.getCartTotal();
-        BigDecimal discount = this.shoppingCartFacade.getDiscountedPrice(total, new BigDecimal("10"));
+        Boolean discounted = this.shoppingCartFacade.isDiscounted();
         ShoppingCart cart = this.shoppingCartFacade.getShoppingCart();
+        BigDecimal discount = discounted
+            ? this.shoppingCartFacade.getDiscountedPrice(total, new BigDecimal("10"))
+            : total;
 
         model.addAttribute("cart", cart);
         model.addAttribute("total", total);
         model.addAttribute("discount", discount);
+        model.addAttribute("discounted", discounted);
 
         return "cart/cart";
     }
@@ -60,5 +65,14 @@ public class ShoppingCartController {
     @GetMapping("/add/{id}")
     public String addToCart(@PathVariable Long id) {
         return this.shoppingCartFacade.addToCart(id);
+    }
+
+    @GetMapping("/voucher")
+    public String voucher(
+        @RequestParam(required = false, defaultValue = "false") Boolean discounted
+    ) {
+        this.shoppingCartFacade.discount(discounted);
+
+        return "redirect:/mvc/cart";
     }
 }

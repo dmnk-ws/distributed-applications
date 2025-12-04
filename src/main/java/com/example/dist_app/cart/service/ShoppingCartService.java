@@ -63,7 +63,8 @@ public class ShoppingCartService implements IShoppingCartService {
                     1L
                 )
             )
-        )
+        ),
+        false
     );
 
     /**
@@ -122,5 +123,23 @@ public class ShoppingCartService implements IShoppingCartService {
         return this.priceCalculationService.round(
             this.shoppingCart.calculateTotal()
         );
+    }
+
+    /**
+     * Sets the discount state of the shopping cart.
+     *
+     * @param isDiscounted true to apply a discount, false to remove it
+     */
+    public void discount(Boolean isDiscounted) {
+        this.shoppingCart.setIsDiscounted(isDiscounted);
+    }
+
+    /**
+     * Checks whether the shopping cart currently has a discount applied.
+     *
+     * @return true if a discount is applied, false otherwise
+     */
+    public Boolean isDiscounted() {
+        return this.shoppingCart.isDiscounted();
     }
 }

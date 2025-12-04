@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
     <head>
         <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
         <title>dist-app</title>
@@ -15,12 +15,22 @@
                 padding: 0 5px 0 5px;
             }
 
+            dl:not(:nth-child(1)) {
+                margin-top: 10px;
+            }
+
             .total dt {
                 font-weight: 600;
             }
 
             .right {
                 text-align: right;
+            }
+
+            .actions {
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         </style>
     </head>
@@ -55,6 +65,18 @@
                     <dt>Total Price</dt>
                     <dd th:text="${total}"></dd>
                 </dl>
+                <dl class="total">
+                    <dt>Discounted Price</dt>
+                    <dd th:text="${discount}"></dd>
+                </dl>
+                <dl class="total">
+                    <dd th:if="${!discounted}">No voucher has been applied yet</dd>
+                    <dd th:if="${discounted}">A 10% voucher has been applied</dd>
+                </dl>
+            </div>
+            <div class="actions">
+                <a class="button" th:if="${!discounted}" th:href="'/mvc/cart/voucher?discounted=true'">Apply 10% voucher</a>
+                <a class="button" th:if="${discounted}" th:href="'/mvc/cart/voucher'">Remove 10% voucher</a>
             </div>
         </main>
     </body>

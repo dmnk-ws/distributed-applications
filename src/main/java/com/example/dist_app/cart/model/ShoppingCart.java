@@ -27,6 +27,8 @@ public class ShoppingCart {
      */
     private final List<CartItem> cartItems;
 
+    private Boolean isDiscounted;
+
     /**
      * Creates a new shopping cart with the specified id, user, and cart items.
      *
@@ -37,11 +39,13 @@ public class ShoppingCart {
     public ShoppingCart(
         Long id,
         User user,
-        List<CartItem> cartItems
+        List<CartItem> cartItems,
+        Boolean isDiscounted
     ) {
         this.id = id;
         this.user = user;
         this.cartItems = cartItems != null ? cartItems : new ArrayList<>();
+        this.isDiscounted = isDiscounted;
     }
 
     /**
@@ -139,5 +143,13 @@ public class ShoppingCart {
     public boolean hasProduct(Product product) {
         return this.cartItems.stream()
             .anyMatch(item -> Objects.equals(item.getProduct().getId(), product.getId()));
+    }
+
+    public void setIsDiscounted(Boolean isDiscounted) {
+        this.isDiscounted = isDiscounted;
+    }
+
+    public Boolean isDiscounted() {
+        return this.isDiscounted;
     }
 }

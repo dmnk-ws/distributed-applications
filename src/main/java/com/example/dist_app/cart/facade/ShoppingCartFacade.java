@@ -111,4 +111,22 @@ public class ShoppingCartFacade implements IShoppingCartFacade {
     public BigDecimal getDiscountedPrice(BigDecimal amount, BigDecimal percentage) {
         return this.priceCalculationService.discount(amount, percentage);
     }
+
+    /**
+     * Sets the discount state of the shopping cart.
+     *
+     * @param isDiscounted true to apply a discount, false to remove it
+     */
+    public void discount(Boolean isDiscounted) {
+        this.shoppingCartService.discount(isDiscounted);
+    }
+
+    /**
+     * Checks whether the shopping cart currently has a discount applied.
+     *
+     * @return true if a discount is applied, false otherwise
+     */
+    public Boolean isDiscounted() {
+        return this.shoppingCartService.isDiscounted();
+    }
 }

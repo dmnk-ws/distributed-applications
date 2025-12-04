@@ -61,12 +61,10 @@ public class PriceCalculationService implements IPriceCalculationService {
      * @return the discounted price
      */
     public BigDecimal discount(BigDecimal price, BigDecimal percentage) {
-        return this.round(
-            new BigDecimal("1").subtract(
-                price.multiply(
-                    percentage.divide(BigDecimal.TEN, RoundingMode.HALF_UP)
-                )
-            )
-        );
+        BigDecimal multiplier = new BigDecimal("100")
+            .subtract(percentage)
+            .divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP);
+
+        return this.round(price.multiply(multiplier));
     }
 }
