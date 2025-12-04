@@ -1,5 +1,6 @@
 package com.example.dist_app.service;
 
+import com.example.dist_app.entity.enums.Currency;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,6 +12,13 @@ import java.math.RoundingMode;
  */
 @Service
 public class PriceCalculationService implements IPriceCalculationService {
+
+    /**
+     * Default constructor for PriceCalculationService.
+     */
+    public PriceCalculationService() {
+    }
+
     /**
      * Rounds the price to two decimal places using HALF_UP rounding mode
      * (rounds up when the digit is 0.5 or greater).
@@ -20,5 +28,45 @@ public class PriceCalculationService implements IPriceCalculationService {
      */
     public BigDecimal round(BigDecimal price) {
         return price.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * Converts the given amount from one currency into another using
+     * the {@link Currency} enum.
+     *
+     * @param amount the amount to convert
+     * @param from the currency to convert from
+     * @param to the currency to convert to
+     * @return the rounded and converted currency
+     */
+    public BigDecimal convert(BigDecimal amount, Currency from, Currency to) {
+        if (from.equals(to)) {
+            return amount;
+        }
+
+        BigDecimal inEuro = amount.divide(
+            from.getRateToEuro(), 10, RoundingMode.HALF_UP
+        );
+
+        return this.round(
+            inEuro.multiply(to.getRateToEuro())
+        );
+    }
+
+    /**
+     * Discounts a given percentage from a given price.
+     *
+     * @param price the price to discount
+     * @param percentage the percentage that is discounted from the price
+     * @return the discounted price
+     */
+    public BigDecimal discount(BigDecimal price, BigDecimal percentage) {
+        return this.round(
+            new BigDecimal("1").subtract(
+                price.multiply(
+                    percentage.divide(BigDecimal.TEN, RoundingMode.HALF_UP)
+                )
+            )
+        );
     }
 }

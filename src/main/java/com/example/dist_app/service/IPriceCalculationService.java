@@ -1,5 +1,7 @@
 package com.example.dist_app.service;
 
+import com.example.dist_app.entity.enums.Currency;
+
 import java.math.BigDecimal;
 
 /**
@@ -14,4 +16,24 @@ public interface IPriceCalculationService {
      * @return the rounded price with two decimal places
      */
     BigDecimal round(BigDecimal price);
+
+    /**
+     * Converts the given amount from one currency into another using
+     * the {@link Currency} enum.
+     *
+     * @param amount the amount to convert
+     * @param from the currency to convert from
+     * @param to the currency to convert to
+     * @return the rounded and converted currency
+     */
+    BigDecimal convert(BigDecimal amount, Currency from, Currency to);
+
+    /**
+     * Discounts a given percentage from a given price.
+     *
+     * @param price the price to discount
+     * @param percentage the percentage that is discounted from the price
+     * @return the discounted price
+     */
+    BigDecimal discount(BigDecimal price, BigDecimal percentage);
 }

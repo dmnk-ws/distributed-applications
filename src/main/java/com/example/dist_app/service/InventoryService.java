@@ -13,6 +13,12 @@ import java.util.Map;
 public class InventoryService implements IInventoryService {
 
     /**
+     * Default constructor for InventoryService.
+     */
+    public InventoryService() {
+    }
+
+    /**
      * In-memory map of product IDs to their stock quantities.
      */
     private final Map<Long, Integer> inventory = new HashMap<>(

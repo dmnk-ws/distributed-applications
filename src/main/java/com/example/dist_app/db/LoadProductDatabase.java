@@ -16,6 +16,13 @@ import java.math.BigDecimal;
  */
 @Configuration
 public class LoadProductDatabase {
+
+    /**
+     * Default constructor for LoadProductDatabase.
+     */
+    public LoadProductDatabase() {
+    }
+
     /**
      * Logger for this class.
      */

@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class WelcomeController {
 
     /**
+     * Default constructor for WelcomeController.
+     */
+    public WelcomeController() {
+    }
+
+    /**
      * Returns a welcome message for the root endpoint.
      *
      * @return a greeting string

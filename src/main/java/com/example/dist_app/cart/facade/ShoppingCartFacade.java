@@ -3,6 +3,7 @@ package com.example.dist_app.cart.facade;
 import com.example.dist_app.cart.model.ShoppingCart;
 import com.example.dist_app.cart.service.IShoppingCartService;
 import com.example.dist_app.service.IInventoryService;
+import com.example.dist_app.service.IPriceCalculationService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -38,14 +39,26 @@ public class ShoppingCartFacade implements IShoppingCartFacade {
     private final IShoppingCartService shoppingCartService;
 
     /**
+     * Service for calculating prices, discounts, and currency conversions.
+     * Used to apply discounts to cart items.
+     */
+    private final IPriceCalculationService priceCalculationService;
+
+    /**
      * Constructs a ShoppingCartFacade with the required service dependencies.
      *
      * @param inventoryService the inventory service for stock management
      * @param cartService the shopping cart service for cart operations
+     * @param priceCalculationService the price calculation service for discount operations
      */
-    public ShoppingCartFacade(IInventoryService inventoryService, IShoppingCartService cartService) {
+    public ShoppingCartFacade(
+        IInventoryService inventoryService,
+        IShoppingCartService cartService,
+        IPriceCalculationService priceCalculationService
+    ) {
         this.inventoryService = inventoryService;
         this.shoppingCartService = cartService;
+        this.priceCalculationService = priceCalculationService;
     }
 
     /**
@@ -82,9 +95,20 @@ public class ShoppingCartFacade implements IShoppingCartFacade {
      * Calculates and returns the total price of all items in the shopping cart.
      * The total is computed by summing up the prices of all cart items.
      *
-     * @return the total price of the cart in Euros as a BigDecimal value
+     * @return the total price of the cart as a BigDecimal value
      */
     public BigDecimal getCartTotal() {
         return this.shoppingCartService.getCartTotal();
+    }
+
+    /**
+     * Calculates the discounted price based on the given amount and percentage.
+     *
+     * @param amount the original price amount
+     * @param percentage the discount percentage to apply
+     * @return the discounted price as a BigDecimal value
+     */
+    public BigDecimal getDiscountedPrice(BigDecimal amount, BigDecimal percentage) {
+        return this.priceCalculationService.discount(amount, percentage);
     }
 }

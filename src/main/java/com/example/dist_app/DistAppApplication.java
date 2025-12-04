@@ -11,6 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DistAppApplication {
 
 	/**
+	 * Default constructor for DistAppApplication.
+	 */
+	public DistAppApplication() {
+	}
+
+	/**
 	 * Main method that starts the Spring Boot application.
 	 *
 	 * @param args command-line arguments

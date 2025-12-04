@@ -25,9 +25,19 @@ public interface IShoppingCartFacade {
     String addToCart(Long productId);
 
     /**
-     * Calculates and returns the total price of all items in the cart.
+     * Calculates and returns the total price of all items in the shopping cart.
+     * The total is computed by summing up the prices of all cart items.
      *
-     * @return the total price in Euros
+     * @return the total price of the cart as a BigDecimal value
      */
     BigDecimal getCartTotal();
+
+    /**
+     * Calculates the discounted price based on the given amount and percentage.
+     *
+     * @param amount the original price amount
+     * @param percentage the discount percentage to apply
+     * @return the discounted price as a BigDecimal value
+     */
+    BigDecimal getDiscountedPrice(BigDecimal amount, BigDecimal percentage);
 }

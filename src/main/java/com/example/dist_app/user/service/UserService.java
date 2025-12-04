@@ -17,6 +17,12 @@ import java.util.concurrent.atomic.AtomicLong;
 public class UserService implements IUserService {
 
     /**
+     * Default constructor for UserService.
+     */
+    public UserService() {
+    }
+
+    /**
      * Counter for generating unique user IDs.
      */
     private final AtomicLong userIdCounter = new AtomicLong(6);
