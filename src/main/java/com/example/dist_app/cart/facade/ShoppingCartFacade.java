@@ -2,6 +2,7 @@ package com.example.dist_app.cart.facade;
 
 import com.example.dist_app.cart.model.ShoppingCart;
 import com.example.dist_app.cart.service.IShoppingCartService;
+import com.example.dist_app.entity.enums.Currency;
 import com.example.dist_app.service.IInventoryService;
 import com.example.dist_app.service.IPriceCalculationService;
 import org.springframework.stereotype.Service;
@@ -102,31 +103,37 @@ public class ShoppingCartFacade implements IShoppingCartFacade {
     }
 
     /**
-     * Calculates the discounted price based on the given amount and percentage.
+     * Applies or removes a discount voucher and calculates the final price.
      *
      * @param amount the original price amount
      * @param percentage the discount percentage to apply
-     * @return the discounted price as a BigDecimal value
+     * @param voucher true to apply the discount, false to remove it
+     * @return the discounted price if voucher is true, otherwise the original amount
      */
-    public BigDecimal getDiscountedPrice(BigDecimal amount, BigDecimal percentage) {
-        return this.priceCalculationService.discount(amount, percentage);
+    public BigDecimal getDiscountedPrice(BigDecimal amount, BigDecimal percentage, Boolean voucher) {
+        ShoppingCart cart = this.shoppingCartService.getShoppingCart();
+        cart.setIsDiscounted(voucher);
+
+        return voucher
+            ? this.priceCalculationService.discount(amount, percentage)
+            : amount;
     }
 
     /**
-     * Sets the discount state of the shopping cart.
+     * Converts an amount from the default currency to the target currency
+     * and updates the cart's currency.
      *
-     * @param isDiscounted true to apply a discount, false to remove it
+     * @param amount the amount to convert (in the default currency)
+     * @param to the target currency
+     * @return the converted amount in the target currency
      */
-    public void discount(Boolean isDiscounted) {
-        this.shoppingCartService.discount(isDiscounted);
-    }
+    public BigDecimal convert(BigDecimal amount, Currency to) {
+        this.shoppingCartService.getShoppingCart().setCurrency(to);
 
-    /**
-     * Checks whether the shopping cart currently has a discount applied.
-     *
-     * @return true if a discount is applied, false otherwise
-     */
-    public Boolean isDiscounted() {
-        return this.shoppingCartService.isDiscounted();
+        return this.priceCalculationService.convert(
+            amount,
+            this.priceCalculationService.getDefaultCurrency(),
+            to
+        );
     }
 }

@@ -29,18 +29,4 @@ public interface IShoppingCartService {
      * @return the total price in Euros
      */
     BigDecimal getCartTotal();
-
-    /**
-     * Sets the discount state of the shopping cart.
-     *
-     * @param isDiscounted true to apply a discount, false to remove it
-     */
-    void discount(Boolean isDiscounted);
-
-    /**
-     * Checks whether the shopping cart currently has a discount applied.
-     *
-     * @return true if a discount is applied, false otherwise
-     */
-    Boolean isDiscounted();
 }

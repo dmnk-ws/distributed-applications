@@ -2,6 +2,7 @@ package com.example.dist_app.cart.controller;
 
 import com.example.dist_app.cart.facade.IShoppingCartFacade;
 import com.example.dist_app.cart.model.ShoppingCart;
+import com.example.dist_app.entity.enums.Currency;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,21 +38,26 @@ public class ShoppingCartController {
      * Displays the shopping cart page with all cart items and the total price.
      *
      * @param model the Spring MVC model to add attributes to
+     * @param voucher whether to apply a discount voucher (defaults to false)
+     * @param currency the currency to display prices in (defaults to EUR)
      * @return the name of the cart view template
      */
     @GetMapping("")
-    public String cart(Model model) {
-        BigDecimal total = this.shoppingCartFacade.getCartTotal();
-        Boolean discounted = this.shoppingCartFacade.isDiscounted();
+    public String cart(
+        Model model,
+        @RequestParam(required = false, defaultValue = "false") Boolean voucher,
+        @RequestParam(required = false, defaultValue = "EUR") Currency currency
+    ) {
         ShoppingCart cart = this.shoppingCartFacade.getShoppingCart();
-        BigDecimal discount = discounted
-            ? this.shoppingCartFacade.getDiscountedPrice(total, new BigDecimal("10"))
-            : total;
+        BigDecimal converted = this.shoppingCartFacade.convert(
+            this.shoppingCartFacade.getCartTotal(),
+            currency
+        );
+        BigDecimal discount = this.shoppingCartFacade.getDiscountedPrice(converted, new BigDecimal("10"), voucher);
 
         model.addAttribute("cart", cart);
-        model.addAttribute("total", total);
+        model.addAttribute("total", converted);
         model.addAttribute("discount", discount);
-        model.addAttribute("discounted", discounted);
 
         return "cart/cart";
     }
@@ -65,20 +71,5 @@ public class ShoppingCartController {
     @GetMapping("/add/{id}")
     public String addToCart(@PathVariable Long id) {
         return this.shoppingCartFacade.addToCart(id);
-    }
-
-    /**
-     * Toggles or sets the discount state for the shopping cart.
-     *
-     * @param discounted true to apply a discount, false to remove it (defaults to false)
-     * @return a redirect URL to the cart page
-     */
-    @GetMapping("/voucher")
-    public String voucher(
-        @RequestParam(required = false, defaultValue = "false") Boolean discounted
-    ) {
-        this.shoppingCartFacade.discount(discounted);
-
-        return "redirect:/mvc/cart";
     }
 }
