@@ -72,12 +72,12 @@
                 </dl>
                 <dl class="total">
                     <dd th:if="${!cart.isDiscounted}">No voucher has been applied yet</dd>
-                    <dd th:if="${cart.isDiscounted}">A 10% voucher has been applied</dd>
+                    <dd th:if="${cart.isDiscounted}" th:text="'A ' + ${discountPercentage} + '% voucher has been applied'"></dd>
                 </dl>
             </div>
             <div class="actions">
-                <a class="button" th:if="${!cart.isDiscounted}" th:href="@{/mvc/cart(voucher=true,currency=${cart.currency})}">Apply 10% voucher</a>
-                <a class="button" th:if="${cart.isDiscounted}" th:href="@{/mvc/cart(voucher=false,currency=${cart.currency})}">Remove 10% voucher</a>
+                <a class="button" th:if="${!cart.isDiscounted}" th:href="@{/mvc/cart(voucher=true,currency=${cart.currency})}" th:text="'Apply ' + ${discountPercentage} + '% voucher'"></a>
+                <a class="button" th:if="${cart.isDiscounted}" th:href="@{/mvc/cart(voucher=false,currency=${cart.currency})}" th:text="'Remove ' + ${discountPercentage} + '% voucher'"></a>
                 <a class="button" th:if="${cart.currency.name() == 'EUR'}" th:href="@{/mvc/cart(voucher=${cart.isDiscounted},currency='USD')}">Convert to USD</a>
                 <a class="button" th:if="${cart.currency.name() == 'USD'}" th:href="@{/mvc/cart(voucher=${cart.isDiscounted},currency='EUR')}">Convert to EUR</a>
             </div>

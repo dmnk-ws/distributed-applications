@@ -49,15 +49,17 @@ public class ShoppingCartController {
         @RequestParam(required = false, defaultValue = "EUR") Currency currency
     ) {
         ShoppingCart cart = this.shoppingCartFacade.getShoppingCart();
+        BigDecimal discountPercentage = this.shoppingCartFacade.getDiscountPercentage();
         BigDecimal converted = this.shoppingCartFacade.convert(
             this.shoppingCartFacade.getCartTotal(),
             currency
         );
-        BigDecimal discount = this.shoppingCartFacade.getDiscountedPrice(converted, new BigDecimal("10"), voucher);
+        BigDecimal discount = this.shoppingCartFacade.getDiscountedPrice(converted, discountPercentage, voucher);
 
         model.addAttribute("cart", cart);
         model.addAttribute("total", converted);
         model.addAttribute("discount", discount);
+        model.addAttribute("discountPercentage", discountPercentage);
 
         return "cart/cart";
     }

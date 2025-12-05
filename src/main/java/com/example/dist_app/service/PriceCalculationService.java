@@ -20,14 +20,23 @@ public class PriceCalculationService implements IPriceCalculationService {
     private final Currency defaultCurrency;
 
     /**
-     * Creates a new PriceCalculationService with the specified default currency.
+     * The default discount percentage for vouchers.
+     */
+    private final BigDecimal discountPercentage;
+
+    /**
+     * Creates a new PriceCalculationService with the specified default currency
+     * and discount percentage.
      *
      * @param defaultCurrency the default currency from application configuration
+     * @param discountPercentage the default discount percentage from application configuration
      */
     public PriceCalculationService(
-        @Value("${app.currency.default}") Currency defaultCurrency
+        @Value("${app.currency.default}") Currency defaultCurrency,
+        @Value("${app.discount.percentage}") BigDecimal discountPercentage
     ) {
         this.defaultCurrency = defaultCurrency;
+        this.discountPercentage = discountPercentage;
     }
 
     /**
@@ -86,5 +95,14 @@ public class PriceCalculationService implements IPriceCalculationService {
      */
     public Currency getDefaultCurrency() {
         return this.defaultCurrency;
+    }
+
+    /**
+     * Returns the default discount percentage configured for the application.
+     *
+     * @return the discount percentage
+     */
+    public BigDecimal getDiscountPercentage() {
+        return this.discountPercentage;
     }
 }

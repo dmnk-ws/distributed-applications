@@ -52,4 +52,11 @@ public interface IShoppingCartFacade {
      * @return the converted amount in the target currency
      */
     BigDecimal convert(BigDecimal amount, Currency to);
+
+    /**
+     * Returns the configured discount percentage.
+     *
+     * @return the discount percentage
+     */
+    BigDecimal getDiscountPercentage();
 }

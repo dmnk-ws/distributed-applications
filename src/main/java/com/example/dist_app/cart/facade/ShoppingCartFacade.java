@@ -136,4 +136,13 @@ public class ShoppingCartFacade implements IShoppingCartFacade {
             to
         );
     }
+
+    /**
+     * Returns the configured discount percentage.
+     *
+     * @return the discount percentage
+     */
+    public BigDecimal getDiscountPercentage() {
+        return this.priceCalculationService.getDiscountPercentage();
+    }
 }

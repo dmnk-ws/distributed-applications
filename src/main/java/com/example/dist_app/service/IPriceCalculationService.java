@@ -43,4 +43,11 @@ public interface IPriceCalculationService {
      * @return the default currency
      */
     Currency getDefaultCurrency();
+
+    /**
+     * Returns the default discount percentage configured for the application.
+     *
+     * @return the discount percentage
+     */
+    BigDecimal getDiscountPercentage();
 }
