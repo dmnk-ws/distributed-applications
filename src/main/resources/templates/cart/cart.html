@@ -55,7 +55,7 @@
                         <td class="right" th:text="${item.product.color}"></td>
                         <td class="right" th:text="${item.product.size}"></td>
                         <td class="right" th:text="${item.quantity}"></td>
-                        <td class="right" th:text="${item.product.price}"></td>
+                        <td class="right" th:text="${item.product.price} + ' ' + ${cart.currency}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -63,11 +63,11 @@
             <div class="card">
                 <dl class="total">
                     <dt>Total Price</dt>
-                    <dd th:text="${total}"></dd>
+                    <dd th:text="${total} + ' ' + ${cart.currency}"></dd>
                 </dl>
                 <dl class="total">
                     <dt>Discounted Price</dt>
-                    <dd th:text="${discount}"></dd>
+                    <dd th:text="${discount} + ' ' + ${cart.currency}"></dd>
                 </dl>
                 <dl class="total">
                     <dd th:if="${!discounted}">No voucher has been applied yet</dd>

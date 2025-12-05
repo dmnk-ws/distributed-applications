@@ -67,6 +67,12 @@ public class ShoppingCartController {
         return this.shoppingCartFacade.addToCart(id);
     }
 
+    /**
+     * Toggles or sets the discount state for the shopping cart.
+     *
+     * @param discounted true to apply a discount, false to remove it (defaults to false)
+     * @return a redirect URL to the cart page
+     */
     @GetMapping("/voucher")
     public String voucher(
         @RequestParam(required = false, defaultValue = "false") Boolean discounted

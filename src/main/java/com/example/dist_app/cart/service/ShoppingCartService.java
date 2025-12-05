@@ -40,32 +40,7 @@ public class ShoppingCartService implements IShoppingCartService {
     /**
      * Temporary fixture data.
      */
-    private final ShoppingCart shoppingCart = new ShoppingCart(
-        1L,
-        new User(
-            1L,
-            "Sheev",
-            "Palpatine",
-            "sheev.palpatine@example.org",
-            new Address(1L, "00001", "Imperial Palace", "Coruscant", "Galactic Empire"),
-            Gender.MALE
-        ),
-        new ArrayList<>(
-            List.of(
-                new CartItem(
-                    1L,
-                    new Product("Stormtrooper Helmet", new BigDecimal("199.99"), 1L, "white"),
-                    3L
-                ),
-                new CartItem(
-                    2L,
-                    new Product("Blaster", new BigDecimal("599.99"), 1L, "black"),
-                    1L
-                )
-            )
-        ),
-        false
-    );
+    private final ShoppingCart shoppingCart;
 
     /**
      * Creates a new ShoppingCartService with the specified services.
@@ -76,6 +51,33 @@ public class ShoppingCartService implements IShoppingCartService {
     public ShoppingCartService(IProductService productService, IPriceCalculationService  priceCalculationService) {
         this.productService = productService;
         this.priceCalculationService = priceCalculationService;
+        this.shoppingCart = new ShoppingCart(
+            1L,
+            new User(
+                1L,
+                "Sheev",
+                "Palpatine",
+                "sheev.palpatine@example.org",
+                new Address(1L, "00001", "Imperial Palace", "Coruscant", "Galactic Empire"),
+                Gender.MALE
+            ),
+            new ArrayList<>(
+                List.of(
+                    new CartItem(
+                        1L,
+                        new Product("Stormtrooper Helmet", new BigDecimal("199.99"), 1L, "white"),
+                        3L
+                    ),
+                    new CartItem(
+                        2L,
+                        new Product("Blaster", new BigDecimal("599.99"), 1L, "black"),
+                        1L
+                    )
+                )
+            ),
+            false,
+            this.priceCalculationService.getDefaultCurrency()
+        );
     }
 
     /**

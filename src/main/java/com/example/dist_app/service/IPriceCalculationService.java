@@ -36,4 +36,11 @@ public interface IPriceCalculationService {
      * @return the discounted price
      */
     BigDecimal discount(BigDecimal price, BigDecimal percentage);
+
+    /**
+     * Returns the default currency configured for the application.
+     *
+     * @return the default currency
+     */
+    Currency getDefaultCurrency();
 }

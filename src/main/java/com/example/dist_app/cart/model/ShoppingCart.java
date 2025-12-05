@@ -1,5 +1,6 @@
 package com.example.dist_app.cart.model;
 
+import com.example.dist_app.entity.enums.Currency;
 import com.example.dist_app.products.model.Product;
 import com.example.dist_app.user.model.User;
 
@@ -27,25 +28,37 @@ public class ShoppingCart {
      */
     private final List<CartItem> cartItems;
 
+    /**
+     * Indicates whether a discount is currently applied to this cart.
+     */
     private Boolean isDiscounted;
 
     /**
-     * Creates a new shopping cart with the specified id, user, and cart items.
+     * The currency used for prices in this shopping cart.
+     */
+    private Currency currency;
+
+    /**
+     * Creates a new shopping cart with the specified attributes.
      *
-     * @param id        the unique identifier for this shopping cart
-     * @param user      the user who owns this cart
-     * @param cartItems the initial list of cart items, or null for an empty cart
+     * @param id           the unique identifier for this shopping cart
+     * @param user         the user who owns this cart
+     * @param cartItems    the initial list of cart items, or null for an empty cart
+     * @param isDiscounted whether a discount is applied to this cart
+     * @param currency     the currency used for prices in this cart
      */
     public ShoppingCart(
         Long id,
         User user,
         List<CartItem> cartItems,
-        Boolean isDiscounted
+        Boolean isDiscounted,
+        Currency currency
     ) {
         this.id = id;
         this.user = user;
         this.cartItems = cartItems != null ? cartItems : new ArrayList<>();
         this.isDiscounted = isDiscounted;
+        this.currency = currency;
     }
 
     /**
@@ -145,11 +158,39 @@ public class ShoppingCart {
             .anyMatch(item -> Objects.equals(item.getProduct().getId(), product.getId()));
     }
 
+    /**
+     * Sets whether a discount is applied to this shopping cart.
+     *
+     * @param isDiscounted true to apply a discount, false to remove it
+     */
     public void setIsDiscounted(Boolean isDiscounted) {
         this.isDiscounted = isDiscounted;
     }
 
+    /**
+     * Checks whether this shopping cart has a discount applied.
+     *
+     * @return true if a discount is applied, false otherwise
+     */
     public Boolean isDiscounted() {
         return this.isDiscounted;
+    }
+
+    /**
+     * Sets the currency for this shopping cart.
+     *
+     * @param currency the currency to use for prices
+     */
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    /**
+     * Returns the currency used for prices in this shopping cart.
+     *
+     * @return the currency
+     */
+    public Currency getCurrency() {
+        return this.currency;
     }
 }

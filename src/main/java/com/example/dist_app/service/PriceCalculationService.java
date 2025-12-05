@@ -1,6 +1,7 @@
 package com.example.dist_app.service;
 
 import com.example.dist_app.entity.enums.Currency;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -14,9 +15,19 @@ import java.math.RoundingMode;
 public class PriceCalculationService implements IPriceCalculationService {
 
     /**
-     * Default constructor for PriceCalculationService.
+     * The default currency used for price calculations.
      */
-    public PriceCalculationService() {
+    private final Currency defaultCurrency;
+
+    /**
+     * Creates a new PriceCalculationService with the specified default currency.
+     *
+     * @param defaultCurrency the default currency from application configuration
+     */
+    public PriceCalculationService(
+        @Value("${app.currency.default}") Currency defaultCurrency
+    ) {
+        this.defaultCurrency = defaultCurrency;
     }
 
     /**
@@ -66,5 +77,14 @@ public class PriceCalculationService implements IPriceCalculationService {
             .divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP);
 
         return this.round(price.multiply(multiplier));
+    }
+
+    /**
+     * Returns the default currency configured for the application.
+     *
+     * @return the default currency
+     */
+    public Currency getDefaultCurrency() {
+        return this.defaultCurrency;
     }
 }
