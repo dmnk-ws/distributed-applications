@@ -37,13 +37,8 @@ public class ReviewService implements IReviewService {
      */
     public void addReview(Long productId, String productName, String userName, String reviewText) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        Review review = new Review(
-            productId,
-            productName,
-            userName,
-            reviewText,
-            LocalDateTime.now().format(formatter)
-        );
+        Review review = new Review(productId, productName, userName, reviewText);
+        review.setDate(LocalDateTime.now().format(formatter));
 
         if (!this.reviews.contains(review)) {
             this.reviews.add(review);

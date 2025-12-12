@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="/css/reset.css">
         <link rel="stylesheet" type="text/css" href="/css/styles.css">
         <link rel="stylesheet" type="text/css" href="/css/nav.css">
+        <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
         <style>
             .details {
                 display: grid;
@@ -86,35 +87,111 @@
                 </dl>
             </section>
             <h2>Reviews</h2>
-            <section class="card" th:each="review : ${product.reviews}">
-                <dl class="details">
-                    <dt>Product name</dt>
-                    <dd th:text="${review.productName}"></dd>
-                    <dt>Username</dt>
-                    <dd th:text="${review.userName}"></dd>
-                    <dt>Review</dt>
-                    <dd th:text="${review.reviewText}"></dd>
-                </dl>
-            </section>
-            <section class="card" th:if="${#lists.isEmpty(product.reviews)}">
-                <p>No reviews yet.</p>
-            </section>
+            <div id="reviews-container">
+                <section class="card" th:each="review : ${product.reviews}">
+                    <dl class="details">
+                        <dt>Product name</dt>
+                        <dd th:text="${review.productName}"></dd>
+                        <dt>Username</dt>
+                        <dd th:text="${review.userName}"></dd>
+                        <dt>Review</dt>
+                        <dd th:text="${review.reviewText}"></dd>
+                    </dl>
+                </section>
+                <section id="no-reviews" class="card" th:if="${#lists.isEmpty(product.reviews)}">
+                    <p>No reviews yet.</p>
+                </section>
+            </div>
             <h2>Submit a review</h2>
             <section class="card">
-                <form method="POST" action="/mvc/review/create" autocomplete="off">
-                    <input type="hidden" name="productId" th:value="${product.id}" />
-                    <input type="hidden" name="productName" th:value="${product.name}" />
+                <form id="review" method="POST" action="/mvc/review/create" autocomplete="off">
+                    <input id="productId" type="hidden" name="productId" th:value="${product.id}" />
+                    <input id="productName" type="hidden" name="productName" th:value="${product.name}" />
                     <div>
                         <label for="userName">Username</label>
-                        <input type="text" name="userName" id="userName" value="" required />
+                        <input id="userName" type="text" name="userName" value="" required />
                     </div>
                     <div>
                         <label for="reviewText">Review</label>
-                        <input type="text" name="reviewText" id="reviewText" value="" required />
+                        <input id="reviewText" type="text" name="reviewText" value="" required />
                     </div>
                     <button class="button" type="submit">Submit</button>
                 </form>
             </section>
         </main>
     </body>
+    <script>
+        const stompClient = new StompJs.Client({
+            brokerURL: 'ws://localhost:8080/review-websocket'
+        });
+        stompClient.activate();
+        stompClient.onConnect = (frame) => {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/review', (message) => {
+                const review = JSON.parse(message.body);
+                addReviewToPage(review);
+            });
+        };
+        stompClient.onWebSocketError = (error) => {
+            console.error('Error with websocket', error);
+        };
+        stompClient.onStompError = (frame) => {
+            console.error('Broker reported error: ' + frame.headers['message']);
+            console.error('Additional details: ' + frame.body);
+        };
+
+        function addDetailRow(dl, label, value) {
+            const dt = document.createElement('dt');
+            dt.textContent = label;
+            const dd = document.createElement('dd');
+            dd.textContent = value;
+            dl.appendChild(dt);
+            dl.appendChild(dd);
+        }
+
+        function addReviewToPage(review) {
+            const noReviews = document.getElementById('no-reviews');
+            if (noReviews) {
+                noReviews.remove();
+            }
+
+            const section = document.createElement('section');
+            section.className = 'card';
+
+            const dl = document.createElement('dl');
+            dl.className = 'details';
+
+            addDetailRow(dl, 'Product name', review.productName);
+            addDetailRow(dl, 'Username', review.userName);
+            addDetailRow(dl, 'Review', review.reviewText);
+
+            section.appendChild(dl);
+            document.getElementById('reviews-container').appendChild(section);
+        }
+
+        const form = window.document.getElementById("review");
+
+        form.addEventListener("submit", formSubmit);
+
+        function formSubmit(e) {
+            e.preventDefault();
+
+            const productId = window.document.getElementById('productId').value;
+            const productName = window.document.getElementById('productName').value;
+            const userName = window.document.getElementById('userName').value
+            const reviewText = window.document.getElementById('reviewText').value;
+
+            stompClient.publish({
+                destination: "/shop/review",
+                body: JSON.stringify({
+                    "productId": productId,
+                    "productName": productName,
+                    "userName": userName,
+                    "reviewText": reviewText,
+                }),
+            });
+
+            form.reset();
+        }
+    </script>
 </html>
