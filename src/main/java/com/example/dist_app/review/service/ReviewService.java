@@ -3,6 +3,8 @@ package com.example.dist_app.review.service;
 import com.example.dist_app.review.model.Review;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,14 @@ public class ReviewService implements IReviewService {
      * {@inheritDoc}
      */
     public void addReview(Long productId, String productName, String userName, String reviewText) {
-        Review review = new Review(productId, productName, userName, reviewText);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Review review = new Review(
+            productId,
+            productName,
+            userName,
+            reviewText,
+            LocalDateTime.now().format(formatter)
+        );
 
         if (!this.reviews.contains(review)) {
             this.reviews.add(review);

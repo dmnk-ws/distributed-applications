@@ -28,6 +28,11 @@ public class Review {
     private final String reviewText;
 
     /**
+     * The date of the review in the format yyyy-MM-dd HH:mm:ss.
+     */
+    private final String date;
+
+    /**
      * Constructs a new Review with the specified details.
      *
      * @param productId   the unique identifier of the product being reviewed
@@ -39,12 +44,14 @@ public class Review {
         Long productId,
         String productName,
         String userName,
-        String reviewText
+        String reviewText,
+        String date
     ) {
         this.productId = productId;
         this.productName = productName;
         this.userName = userName;
         this.reviewText = reviewText;
+        this.date = date;
     }
 
     /**
@@ -81,5 +88,14 @@ public class Review {
      */
     public String getReviewText() {
         return this.reviewText;
+    }
+
+    /**
+     * Returns the date of the review in the format yyyy-MM-dd HH:mm:ss.
+     *
+     * @return the date of the review
+     */
+    public String getDate()  {
+        return this.date;
     }
 }
