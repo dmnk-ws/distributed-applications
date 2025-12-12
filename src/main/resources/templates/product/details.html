@@ -8,13 +8,13 @@
         <link rel="stylesheet" type="text/css" href="/css/styles.css">
         <link rel="stylesheet" type="text/css" href="/css/nav.css">
         <style>
-            .product-details {
+            .details {
                 display: grid;
                 grid-template-columns: auto 1fr;
                 gap: 0.75rem 1.5rem;
             }
 
-            .product-details dt {
+            .details dt {
                 font-weight: 600;
             }
 
@@ -22,6 +22,46 @@
                 color: #dc2626;
                 font-weight: 700;
                 text-transform: uppercase;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            form div {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            label {
+                font-weight: bold;
+                font-size: 0.9em;
+            }
+
+            input {
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1em;
+            }
+
+            input:focus {
+                outline: none;
+                border-color: #5ca7c4;
+                box-shadow: 0 0 0 2px rgba(92, 167, 196, 0.2);
+            }
+
+            .button {
+                margin-top: 20px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            section {
+                width: auto;
             }
         </style>
     </head>
@@ -32,8 +72,8 @@
             <div class="flex" th:unless="${product.isSoldOut()}">
                 <a class="button" th:href="'/mvc/cart/add/' + ${product.id}">Add to cart</a>
             </div>
-            <div class="card">
-                <dl class="product-details">
+            <section class="card">
+                <dl class="details">
                     <dt>Price</dt>
                     <dd id="price" th:text="${product.price}"></dd>
                     <dt>Size</dt>
@@ -44,7 +84,37 @@
                     <dd id="stock" th:text="${product.stock}"></dd>
                     <dd id="status" class="sold-out" th:if="${product.isSoldOut()}">Sold Out</dd>
                 </dl>
-            </div>
+            </section>
+            <h2>Reviews</h2>
+            <section class="card" th:each="review : ${product.reviews}">
+                <dl class="details">
+                    <dt>Product name</dt>
+                    <dd th:text="${review.productName}"></dd>
+                    <dt>Username</dt>
+                    <dd th:text="${review.userName}"></dd>
+                    <dt>Review</dt>
+                    <dd th:text="${review.reviewText}"></dd>
+                </dl>
+            </section>
+            <section class="card" th:if="${#lists.isEmpty(product.reviews)}">
+                <p>No reviews yet.</p>
+            </section>
+            <h2>Submit a review</h2>
+            <section class="card">
+                <form method="POST" action="/mvc/review/create" autocomplete="off">
+                    <input type="hidden" name="productId" th:value="${product.id}" />
+                    <input type="hidden" name="productName" th:value="${product.name}" />
+                    <div>
+                        <label for="userName">Username</label>
+                        <input type="text" name="userName" id="userName" value="" required />
+                    </div>
+                    <div>
+                        <label for="reviewText">Review</label>
+                        <input type="text" name="reviewText" id="reviewText" value="" required />
+                    </div>
+                    <button class="button" type="submit">Submit</button>
+                </form>
+            </section>
         </main>
     </body>
 </html>

@@ -1,6 +1,9 @@
 package com.example.dist_app.products.model;
 
+import com.example.dist_app.review.model.Review;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Data Transfer Object for displaying product details with stock information.
@@ -37,18 +40,25 @@ public class ProductDetailDTO {
     public final Integer stock;
 
     /**
-     * Creates a new ProductDetailDTO from a Product and its stock quantity.
+     * The reviews for this product.
+     */
+    public final List<Review> reviews;
+
+    /**
+     * Creates a new ProductDetailDTO from a Product, its stock quantity, and reviews.
      *
      * @param product the product to create the DTO from
      * @param stock   the current stock quantity
+     * @param reviews the reviews for this product
      */
-    public ProductDetailDTO(Product product, Integer stock) {
+    public ProductDetailDTO(Product product, Integer stock, List<Review> reviews) {
         this.id = product.getId();
         this.name = product.getName();
         this.price = product.getPrice();
         this.size = product.getSize();
         this.color = product.getColor();
         this.stock = stock;
+        this.reviews = reviews;
     }
 
     /**

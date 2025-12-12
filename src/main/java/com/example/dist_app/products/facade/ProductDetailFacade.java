@@ -3,8 +3,12 @@ package com.example.dist_app.products.facade;
 import com.example.dist_app.products.service.IProductService;
 import com.example.dist_app.products.model.Product;
 import com.example.dist_app.products.model.ProductDetailDTO;
+import com.example.dist_app.review.model.Review;
+import com.example.dist_app.review.service.IReviewService;
 import com.example.dist_app.service.IInventoryService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Facade service that aggregates product information with inventory data.
@@ -15,11 +19,13 @@ import org.springframework.stereotype.Service;
  * <ul>
  *   <li>{@link IProductService} - Provides product data retrieval operations</li>
  *   <li>{@link IInventoryService} - Provides stock level information for products</li>
+ *   <li>{@link IReviewService} - Provides review information for products</li>
  * </ul>
  *
  * @see IProductDetailFacade
  * @see IProductService
  * @see IInventoryService
+ * @see IReviewService
  */
 @Service
 public class ProductDetailFacade implements IProductDetailFacade {
@@ -37,28 +43,36 @@ public class ProductDetailFacade implements IProductDetailFacade {
     private final IInventoryService inventoryService;
 
     /**
+     * Service for retrieving product reviews.
+     */
+    private final IReviewService reviewService;
+
+    /**
      * Constructs a ProductDetailFacade with the required service dependencies.
      *
      * @param productService the product service for retrieving product data
      * @param inventoryService the inventory service for retrieving inventory data
+     * @param reviewService the review service for retrieving review data
      */
-    public ProductDetailFacade(IProductService productService, IInventoryService inventoryService) {
+    public ProductDetailFacade(IProductService productService, IInventoryService inventoryService, IReviewService reviewService) {
         this.productService = productService;
         this.inventoryService = inventoryService;
+        this.reviewService = reviewService;
     }
 
     /**
-     * Retrieves comprehensive product details including current stock availability.
+     * Retrieves comprehensive product details including current stock availability and reviews.
      * This method aggregates data from multiple services to create a detailed view
-     * of a product, combining its product information with inventory data.
+     * of a product, combining its product information with inventory data and reviews.
      *
      * @param productId the unique identifier of the product to retrieve details for
-     * @return a {@link ProductDetailDTO} containing the product information and current stock level
+     * @return a {@link ProductDetailDTO} containing the product information, current stock level, and reviews
      */
     public ProductDetailDTO getProductDetail(Long productId) {
         Product product = productService.getProductById(productId);
         Integer stock = inventoryService.getStockForProductId(productId);
+        List<Review> reviews = reviewService.getReviewsForProduct(productId);
 
-        return new ProductDetailDTO(product, stock);
+        return new ProductDetailDTO(product, stock, reviews);
     }
 }
