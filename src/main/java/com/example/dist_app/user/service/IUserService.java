@@ -53,4 +53,11 @@ public interface IUserService {
      * @return the user, or null if not found
      */
     User getUserById(Long id);
+
+    /**
+     * Retrieves the ID of the current user.
+     *
+     * @return the current user's ID
+     */
+    Long getUserId();
 }

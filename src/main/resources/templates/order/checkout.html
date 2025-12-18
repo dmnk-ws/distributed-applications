@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+        <title>dist-app</title>
+        <link rel="stylesheet" type="text/css" href="/css/reset.css">
+        <link rel="stylesheet" type="text/css" href="/css/styles.css">
+        <link rel="stylesheet" type="text/css" href="/css/nav.css">
+        <style>
+            .total {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0 5px 0 5px;
+            }
+
+            dl:not(:nth-child(1)) {
+              margin-top: 10px;
+            }
+
+            .total dt {
+              font-weight: 600;
+            }
+        </style>
+    </head>
+    <body>
+        <header th:replace="fragments/header :: header"></header>
+        <main class="container">
+            <h1>Your order was successfully created</h1>
+            <div class="card">
+                <dl class="total">
+                    <dt>Order created with value:</dt>
+                    <dd th:text="${price}"></dd>
+                </dl>
+                <dl class="total">
+                    <dt>User ID:</dt>
+                    <dd th:text="${userId}"></dd>
+                </dl>
+            </div>
+        </main>
+    </body>
+</html>

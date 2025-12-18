@@ -33,6 +33,12 @@
                 justify-content: center;
                 gap: 10px;
             }
+
+            form {
+                margin-top: 10px;
+                display: flex;
+                justify-content: flex-end;
+            }
         </style>
     </head>
     <body>
@@ -74,6 +80,10 @@
                     <dd th:if="${!cart.isDiscounted}">No voucher has been applied yet</dd>
                     <dd th:if="${cart.isDiscounted}" th:text="'A ' + ${discountPercentage} + '% voucher has been applied'"></dd>
                 </dl>
+                <form action="/mvc/order/checkout" method="POST">
+                    <input type="hidden" name="price" th:value="${discount}" />
+                    <button class="button" type="submit">Pay now</button>
+                </form>
             </div>
             <div class="actions">
                 <a class="button" th:if="${!cart.isDiscounted}" th:href="@{/mvc/cart(voucher=true,currency=${cart.currency})}" th:text="'Apply ' + ${discountPercentage} + '% voucher'"></a>

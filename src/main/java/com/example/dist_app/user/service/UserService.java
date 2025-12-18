@@ -138,4 +138,11 @@ public class UserService implements IUserService {
 
         return null;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Long getUserId() {
+        return this.getUsers().getFirst().getId();
+    }
 }
