@@ -16,4 +16,8 @@ public interface IOrderService {
      * @return the finalized order
      */
     Order finalizeOrder(BigDecimal price, Long userId);
+
+    // Order finalizeOrderWithTotal(BigDecimal price);
+
+    // Order getRecentOrderForUser(Long userId);
 }

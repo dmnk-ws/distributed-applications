@@ -1,5 +1,7 @@
 package com.example.dist_app.user.service;
 
+// import com.example.dist_app.order.model.Order;
+// import com.example.dist_app.order.service.IOrderService;
 import com.example.dist_app.user.model.Address;
 import com.example.dist_app.user.model.Gender;
 import com.example.dist_app.user.model.User;
@@ -15,6 +17,11 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 @Service
 public class UserService implements IUserService {
+    // private final IOrderService orderService;
+
+    // public UserService(IOrderService orderService) {
+    //     this.orderService = orderService;
+    // }
 
     /**
      * Default constructor for UserService.
@@ -145,4 +152,9 @@ public class UserService implements IUserService {
     public Long getUserId() {
         return this.getUsers().getFirst().getId();
     }
+
+    // public Order getRecentOrderForUser() {
+    //     Long userId = this.getUserId();
+    //     return this.orderService.getRecentOrderForUser(userId);
+    // }
 }

@@ -123,4 +123,11 @@ If an attribute is private and lacks a public getter, Jackson cannot access it t
 
 `import java.math.*`
 
+> **9)** What happens if I autowire the UserService in the OrderService and the OrderService in the UserService?
 
+Spring will fully construct each bean before it can be injected, when constructor injection is used:
+
+1. Spring tries to create OrderService
+2. OrderService needs IUserService → Spring tries to create UserService
+3. UserService needs IOrderService → Spring tries to create OrderService
+4. But OrderService is already being created → Spring raises an exception!

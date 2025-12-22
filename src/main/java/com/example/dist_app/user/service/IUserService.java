@@ -1,5 +1,6 @@
 package com.example.dist_app.user.service;
 
+// import com.example.dist_app.order.model.Order;
 import com.example.dist_app.user.model.Address;
 import com.example.dist_app.user.model.Gender;
 import com.example.dist_app.user.model.User;
@@ -60,4 +61,6 @@ public interface IUserService {
      * @return the current user's ID
      */
     Long getUserId();
+
+    // Order getRecentOrderForUser();
 }
