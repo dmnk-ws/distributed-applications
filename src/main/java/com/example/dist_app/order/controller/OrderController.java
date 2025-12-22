@@ -1,6 +1,6 @@
 package com.example.dist_app.order.controller;
 
-import com.example.dist_app.order.facade.IOrderFacade;
+import com.example.dist_app.order.service.IOrderAdapter;
 import com.example.dist_app.order.model.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,17 +18,17 @@ import java.math.BigDecimal;
 @RequestMapping("/mvc/order")
 public class OrderController {
     /**
-     * Facade for order operations.
+     * Adapter for order operations.
      */
-    private final IOrderFacade orderFacade;
+    private final IOrderAdapter orderAdapter;
 
     /**
-     * Constructs an OrderController with the required order facade.
+     * Constructs an OrderController with the required order adapter.
      *
-     * @param orderFacade the facade for order operations
+     * @param orderAdapter adapter for order operations
      */
-    public OrderController(IOrderFacade orderFacade) {
-        this.orderFacade = orderFacade;
+    public OrderController(IOrderAdapter orderAdapter) {
+        this.orderAdapter = orderAdapter;
     }
 
     /**
@@ -43,7 +43,7 @@ public class OrderController {
         @RequestParam BigDecimal price,
         Model model
     ) {
-        Order order = this.orderFacade.finalizeOrder(price);
+        Order order = this.orderAdapter.finalizeOrder(price);
 
         model.addAttribute("price", order.getPrice());
         model.addAttribute("userId", order.getUserId());
