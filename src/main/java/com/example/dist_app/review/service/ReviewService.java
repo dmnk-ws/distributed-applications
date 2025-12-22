@@ -17,6 +17,11 @@ import java.util.List;
  */
 @Service
 public class ReviewService implements IReviewService {
+    /**
+     * Default constructor.
+     */
+    public ReviewService() {
+    }
 
     /**
      * In-memory storage for all product reviews.

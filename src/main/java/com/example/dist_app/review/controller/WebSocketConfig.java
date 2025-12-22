@@ -16,6 +16,11 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+    /**
+     * Default constructor.
+     */
+    public WebSocketConfig() {
+    }
 
     /**
      * Configures the message broker for handling WebSocket messages.

@@ -12,6 +12,12 @@ import java.math.BigDecimal;
 @Service
 public class OrderService implements IOrderService {
     /**
+     * Default constructor.
+     */
+    public OrderService() {
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
