@@ -4,13 +4,15 @@
     let products = [];
     let error = null;
     const catalogUrl = 'http://localhost:8080/saas/catalog/';
+    const apiKey = 'super-secret-api-key';
 
     async function fetchProducts() {
         try {
             const response = await fetch(catalogUrl, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': apiKey,
                 },
             });
 
