@@ -3,7 +3,7 @@
 
     let products = [];
     let error = null;
-    const catalogUrl = 'http://localhost:8080/saas/catalog';
+    const catalogUrl = 'http://localhost:8080/saas/catalog/';
 
     async function fetchProducts() {
         try {
