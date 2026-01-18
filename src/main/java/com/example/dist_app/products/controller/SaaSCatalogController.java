@@ -2,6 +2,13 @@ package com.example.dist_app.products.controller;
 
 import com.example.dist_app.products.model.Product;
 import com.example.dist_app.products.service.IProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,10 +17,14 @@ import java.util.List;
 
 /**
  * REST API controller for product operations.
- * Provides software as a service for CRUD operations and filtering products.
+ * Provides endpoints for browsing and managing the product catalog.
  */
 @RestController
 @RequestMapping("/saas/catalog")
+@Tag(
+    name = "SaaS Product Catalog",
+    description = "API endpoints for browsing and managing the product catalog"
+)
 public class SaaSCatalogController {
     /**
      * Service for product operations.
@@ -34,6 +45,24 @@ public class SaaSCatalogController {
      *
      * @return a list of all products
      */
+    @Operation(
+        summary = "Get all products",
+        description = "Retrieves a complete list of all products in the catalog"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Successfully retrieved the list of products",
+            content = @Content(
+                mediaType = "application/json",
+                array = @ArraySchema(schema = @Schema(implementation = Product.class))
+            )
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Internal server error"
+        )
+    })
     @GetMapping("/")
     public List<Product> index() {
         return this.productService.getProducts();
