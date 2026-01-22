@@ -5,6 +5,7 @@
     let error = null;
     const catalogUrl = 'http://localhost:8080/saas/catalog/';
     const apiKey = 'super-secret-api-key';
+    const tenantId = 'shop-123';
 
     async function fetchProducts() {
         try {
@@ -13,6 +14,7 @@
                 headers: {
                     'Content-Type': 'application/json',
                     'X-API-KEY': apiKey,
+                    'TENANT-ID': tenantId,
                 },
             });
 
