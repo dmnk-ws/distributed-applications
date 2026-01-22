@@ -1,5 +1,6 @@
 package com.example.dist_app.db;
 
+import com.example.dist_app.products.model.Category;
 import com.example.dist_app.products.model.Product;
 import com.example.dist_app.products.repository.ProductRepository;
 import org.slf4j.Logger;
@@ -42,12 +43,12 @@ public class LoadProductDatabase {
         }
 
         return args -> {
-            log.info("Preloading " + repository.save(new Product("Lightsaber", new BigDecimal("999.99"), 1L, "blue")));
-            log.info("Preloading " + repository.save(new Product("Lightsaber", new BigDecimal("1999.99"), 1L, "red")));
-            log.info("Preloading " + repository.save(new Product("Millennium Falcon", new BigDecimal("399.99"), 1L, "grey")));
-            log.info("Preloading " + repository.save(new Product("Stormtrooper Helmet", new BigDecimal("199.99"), 1L, "white")));
-            log.info("Preloading " + repository.save(new Product("Blaster", new BigDecimal("599.99"), 1L, "black")));
-            log.info("Preloading " + repository.save(new Product("Jedi Book", new BigDecimal("99.99"), 1L, "brown")));
+            log.info("Preloading " + repository.save(new Product("Lightsaber", new BigDecimal("999.99"), 1L, "blue", Category.SALE)));
+            log.info("Preloading " + repository.save(new Product("Lightsaber", new BigDecimal("1999.99"), 1L, "red", Category.STANDARD)));
+            log.info("Preloading " + repository.save(new Product("Millennium Falcon", new BigDecimal("399.99"), 1L, "grey", Category.STANDARD)));
+            log.info("Preloading " + repository.save(new Product("Stormtrooper Helmet", new BigDecimal("199.99"), 1L, "white", Category.STANDARD)));
+            log.info("Preloading " + repository.save(new Product("Blaster", new BigDecimal("599.99"), 1L, "black", Category.SALE)));
+            log.info("Preloading " + repository.save(new Product("Jedi Book", new BigDecimal("99.99"), 1L, "brown", Category.STANDARD)));
         };
     }
 }

@@ -83,18 +83,43 @@ public class Product {
     private String color;
 
     /**
+     * The category of the product (e.g., "sale", "standard").
+     * Stored as a string representation of the Category enum.
+     */
+    @Schema(
+        description = "Category of the product",
+        example = "standard",
+        allowableValues = {"sale", "standard"}
+    )
+    private String category;
+
+    /**
      * Constructs a new Product with the specified attributes.
      *
      * @param name the display name of the product
      * @param price the price in Euros
      * @param size the size value of the product
      * @param color the color of the product
+     * @param category the category of the product using Category enum
      */
-    public Product(String name, BigDecimal price,  Long size, String color) {
+    public Product(String name, BigDecimal price,  Long size, String color, Category category) {
         this.name = name;
         this.price = price;
         this.size = size;
         this.color = color;
+        this.category = category.getDescription();
+    }
+
+    /**
+     * Constructs a new Product with the specified attributes and default STANDARD category.
+     *
+     * @param name the display name of the product
+     * @param price the price in Euros
+     * @param size the size value of the product
+     * @param color the color of the product
+     */
+    public Product(String name, BigDecimal price, Long size, String color) {
+        this(name, price, size, color, Category.STANDARD);
     }
 
     /**
@@ -192,5 +217,23 @@ public class Product {
      */
     public void setColor(String color) {
         this.color = color;
+    }
+
+    /**
+     * Returns the category of this product.
+     *
+     * @return the product category as a String (e.g., "sale", "standard")
+     */
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * Sets the category for this product.
+     *
+     * @param category the Category enum value to set
+     */
+    public void setCategory(Category category) {
+        this.category = category.getDescription();
     }
 }
