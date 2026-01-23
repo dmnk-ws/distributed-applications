@@ -32,4 +32,12 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
      * @return a list of blue products
      */
     List<Product> findBlueProducts();
+
+    /**
+     * Finds all products belonging to the specified category.
+     *
+     * @param category the category name to filter by
+     * @return a list of products in the specified category
+     */
+    List<Product> findProductsByCategory(String category);
 }

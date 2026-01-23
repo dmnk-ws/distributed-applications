@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,9 +42,10 @@ public class SaaSCatalogController {
     }
 
     /**
-     * Retrieves all products.
+     * Retrieves all products for the specified tenant.
      *
-     * @return a list of all products
+     * @param tenantId the tenant identifier from the X-TENANT-ID header
+     * @return a list of products available to the tenant
      */
     @Operation(
         summary = "Get all products",
@@ -64,7 +66,9 @@ public class SaaSCatalogController {
         )
     })
     @GetMapping("/")
-    public List<Product> index() {
-        return this.productService.getProducts();
+    public List<Product> index(
+        @RequestHeader("X-TENANT-ID") String tenantId
+    ) {
+        return this.productService.getTenantProducts(tenantId);
     }
 }

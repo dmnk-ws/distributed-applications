@@ -15,13 +15,15 @@ import java.math.BigDecimal;
  *   <li>{@code Product.findBlackProducts} - Retrieves all black-colored products</li>
  *   <li>{@code Product.findRedProducts} - Retrieves all red-colored products</li>
  *   <li>{@code Product.findBlueProducts} - Retrieves all blue-colored products</li>
+ *   <li>{@code Product.findProductsByCategory} - Retrieves all products belonging to a given category</li>
  * </ul>
  */
 @Entity
 @NamedQueries({
     @NamedQuery(name="Product.findBlackProducts", query="SELECT p FROM Product p WHERE p.color = 'black'"),
     @NamedQuery(name="Product.findRedProducts", query="SELECT p FROM Product p WHERE p.color = 'red'"),
-    @NamedQuery(name="Product.findBlueProducts", query="SELECT p FROM Product p WHERE p.color = 'blue'")
+    @NamedQuery(name="Product.findBlueProducts", query="SELECT p FROM Product p WHERE p.color = 'blue'"),
+    @NamedQuery(name="Product.findProductsByCategory", query ="SELECT p FROM Product p WHERE p.category = :category")
 })
 @Schema(description = "Product entity representing an item in the catalog")
 public class Product {

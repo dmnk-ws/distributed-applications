@@ -1,5 +1,6 @@
 package com.example.dist_app.products.service;
 
+import com.example.dist_app.config.TenantConfig;
 import com.example.dist_app.products.model.Product;
 import com.example.dist_app.products.repository.ProductRepository;
 import org.springframework.data.domain.Page;
@@ -23,12 +24,19 @@ public class ProductService implements IProductService {
     private final ProductRepository repository;
 
     /**
-     * Creates a new ProductService with the specified repository.
+     * Tenant configuration for category mapping.
+     */
+    private final TenantConfig tenantConfig;
+
+    /**
+     * Creates a new ProductService with the specified repository and tenant configuration.
      *
      * @param productRepository the product repository for data access
+     * @param tenantConfig the tenant configuration for category mapping
      */
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, TenantConfig tenantConfig) {
         this.repository = productRepository;
+        this.tenantConfig = tenantConfig;
     }
 
     /**
@@ -176,5 +184,20 @@ public class ProductService implements IProductService {
      */
     public Page<Product> getPagedProducts(Pageable pageable) {
         return this.repository.findAll(pageable);
+    }
+
+
+    /**
+     * Retrieves all products available to a specific tenant.
+     * Uses the tenant configuration to map the tenant ID to a product category.
+     *
+     * @param tenantId the tenant identifier
+     * @return a list of products in the tenant's assigned category
+     */
+    @Override
+    public List<Product> getTenantProducts(String tenantId) {
+        String categoryString = this.tenantConfig.getMapping().get(tenantId);
+
+        return this.repository.findProductsByCategory(categoryString);
     }
 }

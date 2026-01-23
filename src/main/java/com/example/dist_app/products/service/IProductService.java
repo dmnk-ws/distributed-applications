@@ -108,4 +108,12 @@ public interface IProductService {
      * @return a page of products
      */
     Page<Product> getPagedProducts(Pageable pageable);
+
+    /**
+     * Retrieves all products that suit the tenant configuration.
+     *
+     * @param tenantId the tenant id
+     * @return a list of all products
+     */
+    List<Product> getTenantProducts(String tenantId);
 }
