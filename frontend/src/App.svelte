@@ -14,7 +14,7 @@
                 headers: {
                     'Content-Type': 'application/json',
                     'X-API-KEY': apiKey,
-                    'TENANT-ID': tenantId,
+                    'X-TENANT-ID': tenantId,
                 },
             });
 

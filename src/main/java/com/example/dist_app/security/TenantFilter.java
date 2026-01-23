@@ -31,7 +31,7 @@ public class TenantFilter extends GenericFilterBean {
         String path = httpRequest.getRequestURI();
 
         if (path.startsWith("/saas") && httpRequest.getMethod().equals("GET")) {
-            String tenant = httpRequest.getHeader("TENANT-ID");
+            String tenant = httpRequest.getHeader("X-TENANT-ID");
 
             if (!this.containsTenant(tenant)) {
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
