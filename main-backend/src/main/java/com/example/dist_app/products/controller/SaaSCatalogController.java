@@ -1,7 +1,7 @@
 package com.example.dist_app.products.controller;
 
 import com.example.dist_app.products.model.Product;
-import com.example.dist_app.products.service.IProductService;
+import com.example.dist_app.products.facade.ISaaSCatalogFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -28,17 +28,17 @@ import java.util.List;
 )
 public class SaaSCatalogController {
     /**
-     * Service for product operations.
+     * Facade for SaaS product operations.
      */
-    private final IProductService productService;
+    private final ISaaSCatalogFacade catalogFacade;
 
     /**
-     * Creates a new SaaSCatalogController with the specified product service.
+     * Creates a new SaaSCatalogController with the specified catalog facade.
      *
-     * @param productService the product service for data operations
+     * @param catalogFacade the product service for data operations
      */
-    public SaaSCatalogController(IProductService productService) {
-        this.productService = productService;
+    public SaaSCatalogController(ISaaSCatalogFacade catalogFacade) {
+        this.catalogFacade = catalogFacade;
     }
 
     /**
@@ -69,6 +69,6 @@ public class SaaSCatalogController {
     public List<Product> index(
         @RequestHeader("X-TENANT-ID") String tenantId
     ) {
-        return this.productService.getTenantProducts(tenantId);
+        return this.catalogFacade.getProducts(tenantId);
     }
 }

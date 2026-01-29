@@ -238,4 +238,13 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category.getDescription();
     }
+
+    /**
+     * Sets the category for this product using a string value.
+     *
+     * @param category the category string to set
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }
